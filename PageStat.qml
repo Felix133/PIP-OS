@@ -38,9 +38,7 @@ C.Page {
             spacing: 4
             height: parent.height
             anchors.left: parent.left
-            anchors.leftMargin: 34
             anchors.right: parent.right
-            anchors.rightMargin: 34
 
             Rectangle {
                 Layout.preferredWidth: 180

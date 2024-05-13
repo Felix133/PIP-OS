@@ -4,7 +4,8 @@ import QtQuick.Controls
 import QtQuick.Effects
 
 Window {
-    width: 800
+    // width: 800
+    width: 730
     height: 600
     visible: true
     title: qsTr("PIP-OS V7.1.0.8")
@@ -25,8 +26,8 @@ Window {
                 left: parent.left
                 right: parent.right
                 topMargin: -5
-                leftMargin: 95
-                rightMargin: 95
+                leftMargin: 65
+                rightMargin: 65
             }
             height: 34
 
@@ -126,11 +127,13 @@ Window {
 
         // Image {
         //     id: ref
-        //     visible: false
-        //     anchors.fill: main
-        //     verticalAlignment: Image.AlignBottom
-        //     source: "/images/ripped_ref_stat.png"
-        //     anchors.horizontalCenterOffset: -8
+        //     // visible: false
+        //     width: 800
+        //     height: 600
+        //     anchors.bottom: main.bottom
+        //     anchors.horizontalCenter: main.horizontalCenter
+        //     source: "/images/ripped_ref.png"
+        //     // anchors.horizontalCenterOffset: -8
         //     z: 1
         //     opacity: 0.2
         //     fillMode: Image.PreserveAspectFit
