@@ -6,74 +6,82 @@ Item {
     id: root
 
     ProgressBar {
-        width: 40
-        height: 12
-        y: 114
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthHead
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: -210
+        }
     }
 
     ProgressBar {
-        width: 40
-        height: 12
-        y: 398
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthBody
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: 76
+        }
     }
 
     ProgressBar {
-        width: 40
-        height: 12
-        anchors.horizontalCenterOffset: -130
-        y: 216
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthLeftArm
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            horizontalCenterOffset: -130
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: -105
+        }
     }
 
     ProgressBar {
-        width: 40
-        height: 12
-        anchors.horizontalCenterOffset: 123
-        y: 216
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthRightArm
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            horizontalCenterOffset: 120
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: -105
+        }
     }
 
     ProgressBar {
-        width: 40
-        height: 12
-        anchors.horizontalCenterOffset: -130
-        y: 348
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthLeftLeg
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            horizontalCenterOffset: -130
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: 30
+        }
     }
 
     ProgressBar {
-        width: 40
-        height: 12
-        anchors.horizontalCenterOffset: 123
-        y: 348
-        anchors.horizontalCenter: root.horizontalCenter
         progress: Dweller.healthRightLeg
-    }
-
-    Text {
-        y: 514
-        width: 300
-        height: 22
-        color: "#ffffff"
-        text: Dweller.name
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.family: "Roboto Condensed"
-        font.pixelSize: 26
-        anchors.horizontalCenter: root.horizontalCenter
+        width: 40
+        height: 10
+        anchors{
+            horizontalCenter: root.horizontalCenter
+            horizontalCenterOffset: 120
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: 30
+        }
     }
 
     AnimatedSprite {
         id: vaultboy
-        anchors.horizontalCenter: root.horizontalCenter
-        y: 214
+        anchors {
+            horizontalCenter: root.horizontalCenter
+            verticalCenter: root.verticalCenter
+            verticalCenterOffset: -20
+        }
         source: "/images/body_0.png"
         frameRate: 7.5
         interpolate: false
@@ -83,9 +91,11 @@ Item {
     }
 
     AnimatedSprite {
-        anchors.bottom: vaultboy.top
-        anchors.bottomMargin: -19
-        anchors.horizontalCenter: vaultboy.horizontalCenter
+        anchors {
+            bottom: vaultboy.top
+            bottomMargin: -19
+            horizontalCenter: vaultboy.horizontalCenter
+        }
         source: "/images/head_0.png"
         frameRate: 7.5
         interpolate: false
@@ -95,10 +105,13 @@ Item {
     }
 
     Row {
-        y: 430
+        anchors {
+            horizontalCenter: root.horizontalCenter
+            bottom: dwellerName.top
+            bottomMargin: 20
+        }
         height: 64
         width: weapon_stats.width + armor_stats.width + 20
-        anchors.horizontalCenter: root.horizontalCenter
         spacing: 20
 
         // Weapon stats
@@ -108,11 +121,7 @@ Item {
             itemStats: ListModel {
                 ListElement {
                     icon: "/images/defence.svg"
-                    value: 66
-                }
-                ListElement {
-                    icon: "/images/defence.svg"
-                    value: 12
+                    value: 18
                 }
             }
         }
@@ -124,28 +133,28 @@ Item {
             itemStats: ListModel {
                 ListElement {
                     icon: "/images/defence.svg"
-                    value: 123
-                }
-                ListElement {
-                    icon: "/images/defence.svg"
-                    value: 666
-                }
-                ListElement {
-                    icon: "/images/defence.svg"
-                    value: 31
+                    value: 10
                 }
             }
         }
     }
 
-    // Development use for positioning reference
-    // Image {
-    //     // visible: false
-    //     anchors.fill: root
-    //     verticalAlignment: Image.AlignBottom
-    //     source: "/images/ripped_ref_stat.png"
-    //     z: 1
-    //     opacity: 0.5
-    //     fillMode: Image.PreserveAspectFit
-    // }
+    Text {
+        id: dwellerName
+        text: Dweller.name
+        anchors {
+            horizontalCenter: root.horizontalCenter
+            bottom: root.bottom
+            bottomMargin: 26
+        }
+        font {
+            family: "Roboto Condensed"
+            pixelSize: 26
+        }
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        width: 300
+        height: 22
+        color: "white"
+    }
 }

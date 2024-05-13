@@ -14,7 +14,8 @@ Window {
         anchors.fill: parent
         color: "black"
 
-        layer.enabled: true
+        // TODO: This doesn't run on linuxfb
+        // layer.enabled: true
         layer.effect: screenOverlay
 
         TabBar {
@@ -128,7 +129,7 @@ Window {
         //     visible: false
         //     anchors.fill: main
         //     verticalAlignment: Image.AlignBottom
-        //     source: "ripped_ref.png"
+        //     source: "/images/ripped_ref_stat.png"
         //     anchors.horizontalCenterOffset: -8
         //     z: 1
         //     opacity: 0.2

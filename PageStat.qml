@@ -15,6 +15,7 @@ C.Page {
     }
 
     StackLayout {
+        anchors.fill: parent
         currentIndex: subMenu.currentIndex
 
         TabStatus { }
