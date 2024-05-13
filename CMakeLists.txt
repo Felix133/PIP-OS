@@ -32,8 +32,6 @@ qt_add_qml_module(appPipOS
         ProgressBar.qml
         TabStatus.qml
         ItemStat.qml
-    RESOURCES
-        ripped_ref.png
     SOURCES
         dweller.h dweller.cpp
         QML_FILES BootSequence.qml

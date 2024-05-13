@@ -123,16 +123,16 @@ Window {
             }
         }
 
-        Image {
-            id: ref
-            visible: false
-            anchors.fill: main
-            verticalAlignment: Image.AlignBottom
-            source: "ripped_ref.png"
-            anchors.horizontalCenterOffset: -8
-            z: 1
-            opacity: 0.2
-            fillMode: Image.PreserveAspectFit
-        }
+        // Image {
+        //     id: ref
+        //     visible: false
+        //     anchors.fill: main
+        //     verticalAlignment: Image.AlignBottom
+        //     source: "ripped_ref.png"
+        //     anchors.horizontalCenterOffset: -8
+        //     z: 1
+        //     opacity: 0.2
+        //     fillMode: Image.PreserveAspectFit
+        // }
     }
 }
