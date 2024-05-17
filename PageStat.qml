@@ -20,7 +20,7 @@ C.Page {
 
         TabStatus { }
         Item {
-            Text { color: "white"; text: "Effects"}
+
         }
         Item {
             Text { color: "white"; text: "Special"}

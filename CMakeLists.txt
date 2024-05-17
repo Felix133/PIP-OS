@@ -21,6 +21,7 @@ qt_add_qml_module(appPipOS
     VERSION 1.0
     QML_FILES
         Main.qml
+        MainLayout.qml
         Style.qml
         NavButton.qml
         SubMenu.qml
@@ -35,8 +36,8 @@ qt_add_qml_module(appPipOS
         TabStatus.qml
         ItemStat.qml
     SOURCES
+        constants.h constants.cpp
         dweller.h dweller.cpp
-        RESOURCES README.md
 )
 
 qt_add_resources(appPipOS "fonts"
@@ -45,6 +46,7 @@ qt_add_resources(appPipOS "fonts"
         fonts/RobotoCondensedFallout.ttf
         fonts/RobotoCondensedLightFallout.ttf
         fonts/RobotoCondensedBoldFallout.ttf
+        fonts/Share-TechMono.ttf
 )
 
 qt_add_resources(appPipOS "images"
@@ -56,6 +58,8 @@ qt_add_resources(appPipOS "images"
         images/weapon.svg
         images/armor.svg
         images/defence.svg
+        images/boot_vaultboy.png
+        images/initiating.svg
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

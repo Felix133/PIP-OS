@@ -21,7 +21,6 @@ class Dweller : public QObject
     Q_PROPERTY(float healthRightLeg READ healthRightLeg WRITE setHealthRightLeg NOTIFY healthRightLegChanged FINAL)
     Q_PROPERTY(int maxAP READ maxAP WRITE setMaxAP NOTIFY maxAPChanged FINAL)
     Q_PROPERTY(int currentAP READ currentAP WRITE setCurrentAP NOTIFY currentAPChanged FINAL)
-
     QML_ELEMENT
     QML_SINGLETON
 
