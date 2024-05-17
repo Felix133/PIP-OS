@@ -141,7 +141,7 @@ Item {
 
     Text {
         id: dwellerName
-        text: Dweller.name
+        text: DwellerSettings.name
         anchors {
             horizontalCenter: root.horizontalCenter
             bottom: root.bottom

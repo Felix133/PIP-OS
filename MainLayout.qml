@@ -5,7 +5,7 @@ import QtQuick.Effects
 
 Item {
     id: root
-    state: "booting"
+    state: "booted"
 
     // TODO: This doesn't run on linuxfb
     layer.enabled: true
@@ -15,6 +15,7 @@ Item {
         id: boot
         visible: false
         anchors.fill: parent
+        // TODO: Add an onComplete handler that switches root.state to booted
     }
 
     Rectangle {
@@ -123,13 +124,13 @@ Item {
             anchors.fill: root
 
             colorization: 1
-            colorizationColor: Style.overlayColor
+            colorizationColor: InterfaceSettings.color
 
             blurEnabled: true
             blur: 0.05
             autoPaddingEnabled: false
 
-            brightness: 0.05
+            // brightness: 0.05
         }
     }
 

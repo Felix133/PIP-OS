@@ -10,31 +10,32 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup()
 
-qt_add_executable(appPipOS
-    main.cpp
-)
+qt_add_executable(appPipOS main.cpp)
 
-set_source_files_properties(Style.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+set_source_files_properties(settings/DwellerSettings.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+set_source_files_properties(settings/InterfaceSettings.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
 qt_add_qml_module(appPipOS
     URI PipOS
     VERSION 1.0
+    RESOURCE_PREFIX /RobCo
     QML_FILES
+        BootSequence.qml
+        ItemStat.qml
         Main.qml
         MainLayout.qml
-        Style.qml
         NavButton.qml
-        SubMenu.qml
-        BootSequence.qml
-        PageStat.qml
-        PageInv.qml
         PageData.qml
+        PageInv.qml
         PageMap.qml
         PageRadio.qml
+        PageStat.qml
         ProgressBar.qml
+        SubMenu.qml
         TabInventory.qml
         TabStatus.qml
-        ItemStat.qml
+        settings/DwellerSettings.qml
+        settings/InterfaceSettings.qml
     SOURCES
         constants.h constants.cpp
         dweller.h dweller.cpp
@@ -43,23 +44,23 @@ qt_add_qml_module(appPipOS
 qt_add_resources(appPipOS "fonts"
     PREFIX "/"
     FILES
+        fonts/Share-TechMono.ttf
         fonts/RobotoCondensedFallout.ttf
         fonts/RobotoCondensedLightFallout.ttf
         fonts/RobotoCondensedBoldFallout.ttf
-        fonts/Share-TechMono.ttf
 )
 
 qt_add_resources(appPipOS "images"
     PREFIX "/"
     FILES
         images/body_0.png
+        images/boot_vaultboy.png
         images/head_0.png
         images/head_1.png
-        images/weapon.svg
         images/armor.svg
         images/defence.svg
-        images/boot_vaultboy.png
         images/initiating.svg
+        images/weapon.svg
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -73,9 +74,7 @@ set_target_properties(appPipOS PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appPipOS
-    PRIVATE Qt6::Quick
-)
+target_link_libraries(appPipOS PRIVATE Qt6::Quick)
 
 include(GNUInstallDirs)
 install(TARGETS appPipOS
