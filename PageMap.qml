@@ -1,9 +1,25 @@
 import QtQuick 2.15
 import QtQuick.Controls
 import QtQuick.Layouts
+// import QtLocation
+// import QtPositioning
 
 Page {
     background: Rectangle { color: "black" }
+
+    // Plugin {
+    //     id: mapPlugin
+    //     name: "osm"
+    // }
+
+    // Map {
+    //     id: map
+    //     anchors.fill: parent
+    //     plugin: mapPlugin
+    //     center: QtPositioning.coordinate(59.91, 10.75) // Oslo
+    //     zoomLevel: 14
+    //     color: "black"
+    // }
 
     footer: Rectangle {
         height: 40

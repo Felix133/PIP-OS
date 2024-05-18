@@ -5,6 +5,8 @@ Rectangle {
     id: root
     color: "black"
 
+    signal bootComplete()
+
     BootScreen {
         id: constants
     }
@@ -85,7 +87,7 @@ Rectangle {
             verticalCenterOffset: -20
         }
         source: "/images/boot_vaultboy.png"
-        frameDuration: 133 // TODO: This is wrong, need to work out how to control when each frame animates
+        frameRate: 7.5
         interpolate: false
         frameWidth: 160
         frameHeight: 230
@@ -93,22 +95,37 @@ Rectangle {
         loops: 1
         paused: true
 
-        onFinished: {
-            console.log("all done")
-        }
-
         Timer {
             id: bootVaultBoyTimer
             interval: 2500
-            onTriggered: bootVaultBoy.paused = false
+            onTriggered: {
+                console.debug("Giving the thumbs up")
+                // TODO: This isn't starting the animation idk why
+                bootVaultBoy.paused = false
+                vaultBoyWait.start()
+            }
         }
 
+        // TODO: Need to work out how to stop the animation on the last frame
+        // Timer {
+        //     id: bootVaultBoyTimerTwo
+        //     interval: bootVaultBoy.frameCount * bootVaultBoy.frame - 1
+        //     running: bootVaultBoy.running
+        //     repeat: false
+        //     onTriggered: {
+        //         console.debug("Stopping the Vault Boy")
+        //         bootVaultBoy.running = false
+        //     }
+        // }
+
         Timer {
-            id: bootVaultBoyTimerTwo
-            interval: bootVaultBoy.frameCount * bootVaultBoy.frame - 1
-            running: bootVaultBoy.running
+            id: vaultBoyWait
+            interval: 4000
             repeat: false
-            onTriggered: bootVaultBoy.running = false
+            onTriggered: {
+                console.debug("Signal boot complete")
+                root.bootComplete()
+            }
         }
     }
 
@@ -134,6 +151,7 @@ Rectangle {
         target: bootText.transitions[0]
         function onRunningChanged () {
             if (!bootText.transitions[0].running) {
+                console.debug("Showing system text")
                 systemTextTimer.running = true
             }
         }
@@ -144,6 +162,7 @@ Rectangle {
         target: systemText.transitions[0]
         function onRunningChanged () {
             if (!systemText.transitions[0].running) {
+                console.debug("Starting Vault Boy")
                 bootVaultBoy.visible = true
                 bootVaultBoyTimer.start()
                 initiatingText.visible = true

@@ -13,6 +13,10 @@ C.Page {
         horizontalOffset: -80
     }
 
+    TabInventory {
+        anchors.fill: parent
+    }
+
     footer: Rectangle {
         height: 40
         color: "#00000000"

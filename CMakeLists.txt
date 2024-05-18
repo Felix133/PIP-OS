@@ -31,8 +31,8 @@ qt_add_qml_module(appPipOS
         PageMap.qml
         PageRadio.qml
         PageStat.qml
-        TabInventory.qml
         TabStatus.qml
+        TabInventory.qml
         components/ItemStat.qml
         components/ProgressBar.qml
         settings/DwellerSettings.qml

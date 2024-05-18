@@ -10,5 +10,6 @@ Window {
     visible: true
     title: qsTr("PIP-OS V7.1.0.8")
 
+    color: "black"
     MainLayout { anchors.fill: parent }
 }

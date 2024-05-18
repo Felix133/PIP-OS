@@ -5,7 +5,16 @@ import QtQuick.Effects
 
 Item {
     id: root
-    state: "booted"
+    state: InterfaceSettings.skipBoot ? "booted" : "booting"
+
+    property string activePage: "STAT"
+    property var pageSources: {
+        "STAT": "qrc:/RobCo/PipOS/PageStat.qml",
+        "ITEM": "qrc:/RobCo/PipOS/PageItem.qml",
+        "DATA": "qrc:/RobCo/PipOS/PageData.qml",
+        "MAP": "qrc:/RobCo/PipOS/PageMap.qml",
+        "RADIO": "qrc:/RobCo/PipOS/PageRadio.qml",
+    }
 
     // TODO: This doesn't run on linuxfb
     layer.enabled: true
@@ -15,7 +24,7 @@ Item {
         id: boot
         visible: false
         anchors.fill: parent
-        // TODO: Add an onComplete handler that switches root.state to booted
+        onBootComplete: root.state = "booted"
     }
 
     Rectangle {
@@ -31,12 +40,12 @@ Item {
                 left: parent.left
                 right: parent.right
             }
-            activeTab: "STAT"
+            activeTab: root.activePage
         }
 
         Loader {
             id: page
-            source: "qrc:/RobCo/PipOS/PageStat.qml"
+            source: pageSources[activePage]
             anchors {
                 top: mainNav.bottom
                 left: parent.left
@@ -58,6 +67,16 @@ Item {
             opacity: 0.2
             fillMode: Image.PreserveAspectFit
         }
+
+        // When the main screen is loaded, we can flicker, for effect
+        NumberAnimation on opacity {
+            id: flashIn
+            from: 0
+            to: 1
+            easing.type: Easing.OutInElastic
+            duration: 1500
+        }
+        onVisibleChanged: flashIn.start()
     }
 
 
@@ -100,26 +119,11 @@ Item {
 
     Connections {
         target: inputHandler
-        function onStatPressed() {
-            mainNav.activeTab = "STAT"
-            page.source = "qrc:/RobCo/PipOS/PageStat.qml"
-        }
-        function onItemPressed() {
-            mainNav.activeTab = "ITEM"
-            page.source = "qrc:/RobCo/PipOS/PageItem.qml"
-        }
-        function onDataPressed() {
-            mainNav.activeTab = "DATA"
-            page.source = "qrc:/RobCo/PipOS/PageData.qml"
-        }
-        function onMapPressed() {
-            mainNav.activeTab = "MAP"
-            page.source = "qrc:/RobCo/PipOS/PageMap.qml"
-        }
-        function onRadioPressed() {
-            mainNav.activeTab = "RADIO"
-            page.source = "qrc:/RobCo/PipOS/PageRadio.qml"
-        }
+        function onStatPressed() { root.activePage = "STAT" }
+        function onItemPressed() { root.activePage = "ITEM" }
+        function onDataPressed() { root.activePage = "DATA" }
+        function onMapPressed() { root.activePage = "MAP" }
+        function onRadioPressed() { root.activePage = "RADIO" }
     }
 
     states: [
