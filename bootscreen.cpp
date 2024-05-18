@@ -1,8 +1,12 @@
-#include "constants.h"
+#include "bootscreen.h"
 
-GlobalConstants::GlobalConstants(QObject *parent)
-    : QObject{parent},
-    m_bootText(R"(
+BootScreen::BootScreen(QObject *parent)
+    : QObject{parent}
+{}
+
+QString BootScreen::bootingText() const
+{
+    return R"(
 * 1 1 0x0000A4 0x00000000000000000 start memory discovery 0 0x0000A4
 0x00000000000000000 1 0 0x000014 0x00000000000000000 CPUO starting cell
 relocation0 0x0000A4 0x00000000000000000 1 0 0x000009
@@ -106,9 +110,12 @@ start memory discovery 0 0x0000A4 0x00000000000000000 1 0 0x000014
 0x00000000000000000 1 0 0x000009 0x00000000000000000 CPUO launch EFI0
 0x0000A4 0x00000000000000000 1 0 0x000009 0x000000000000E003D CPUO
 starting EFI0 0x0000A4 0x00000000000000000 1 0 0x0000A4
-0x00000000000000000 start memory discovery0 0x0000A4 0x00000000000000000)"),
+0x00000000000000000 start memory discovery0 0x0000A4 0x00000000000000000)";
+}
 
-    m_systemText(R"(
+QString BootScreen::systemText() const
+{
+    return R"(
 *************** PIP-OS(R) V7.1.0.8 ***************
 
 
@@ -119,17 +126,5 @@ EXEC VERSION 41.10
 38911 BYTES FREE
 NO HOLOTAPE FOUND
 LOAD ROM(1): DEITRIX 303
-)")
-{}
-
-QString GlobalConstants::bootText() const
-{
-    return m_bootText;
+)";
 }
-
-QString GlobalConstants::systemText() const
-{
-    return m_systemText;
-}
-
-

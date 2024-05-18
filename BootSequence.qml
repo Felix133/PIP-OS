@@ -1,12 +1,17 @@
 import QtQuick 2.15
+import BootScreen
 
 Rectangle {
     id: root
     color: "black"
 
+    BootScreen {
+        id: constants
+    }
+
     Text {
         id: bootText
-        text: constants.bootText
+        text: constants.bootingText
         font.pixelSize: 16
         anchors {
             top: root.bottom
