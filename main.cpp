@@ -3,8 +3,11 @@
 #include <QFontDatabase>
 #include <QQmlContext>
 #include <QSettings>
+#include <QKeyEvent>
 
-#include "constants.h"
+#include "bootscreen.h"
+#include "inputeventhandler.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -21,14 +24,17 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont(":/fonts/RobotoCondensedLightFallout.ttf");
     QFontDatabase::addApplicationFont(":/fonts/RobotoCondensedBoldFallout.ttf");
 
+    qmlRegisterType<BootScreen>("BootScreen", 1, 0, "BootScreen");
+
     QQmlApplicationEngine engine;
 
     // Access root context
     QQmlContext* context = engine.rootContext();
 
-    // Set context property
-    GlobalConstants globalConstants;
-    context->setContextProperty("constants", &globalConstants);
+    // Input handler
+    InputEventHandler* inputHandler = new InputEventHandler();
+    app.installEventFilter(inputHandler);
+    context->setContextProperty("inputHandler", inputHandler);
 
     const QUrl url(QStringLiteral("qrc:/RobCo/PipOS/Main.qml"));
     QObject::connect(

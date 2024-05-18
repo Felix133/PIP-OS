@@ -12,7 +12,7 @@ ListView {
     }
 
     function goToNext() {
-        if (currentIndex + 1 === items.length) currentIndex = 0
+        if (currentIndex + 1 === model.length) currentIndex = 0
         else currentIndex = currentIndex + 1
     }
 

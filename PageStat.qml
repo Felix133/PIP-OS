@@ -104,4 +104,11 @@ C.Page {
             }
         }
     }
+
+    Connections {
+        target: inputHandler
+        function onStatPressed() {
+            subMenu.goToNext()
+        }
+    }
 }

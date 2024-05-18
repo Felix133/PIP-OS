@@ -43,60 +43,18 @@ Item {
             NavButton { text: "DATA" }
             // NavButton { text: "MAP" }
             NavButton { text: "RADIO" }
-
-            focus: true
-
-            Keys.onPressed: event => {
-                switch (event.key) {
-                    case Qt.Key_1:
-                    if (tabs.currentIndex !== 0) {
-                        tabs.setCurrentIndex(0)
-                        pageStat.subMenuIndex = 0
-                    }
-                    else pageStat.subMenuNext()
-                    break
-
-                    case Qt.Key_2:
-                    if (tabs.currentIndex !== 1) {
-                        tabs.setCurrentIndex(1)
-                        pageStat.pageInv = 0
-                    }
-                    else pageStat.pageInv()
-                    break
-
-                    case Qt.Key_3:
-                    if (tabs.currentIndex !== 2) {
-                        tabs.setCurrentIndex(2)
-                        pageStat.pageData = 0
-                    }
-                    else pageStat.pageData()
-                    break
-
-                    case Qt.Key_4:
-                    if (tabs.currentIndex !== 3) {
-                        tabs.setCurrentIndex(3)
-                    }
-                    break
-                }
-            }
         }
 
-        StackLayout {
-            id: stack
+
+        Loader {
+            id: page
+            source: "qrc:/RobCo/PipOS/PageStat.qml"
             anchors {
                 top: tabs.bottom
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
             }
-
-            currentIndex: tabs.currentIndex
-
-            PageStat { id: pageStat }
-            PageInv { id: pageInv }
-            PageData { id: pageData }
-            // PageMap { id: pageMap }
-            PageRadio { id: pageRadio }
         }
 
         // Image {
@@ -150,6 +108,15 @@ Item {
                 }
             }
         }
+    }
+
+    Connections {
+        target: inputHandler
+        function onStatPressed() { page.source = "qrc:/RobCo/PipOS/PageStat.qml" }
+        function onInvPressed() { page.source = "qrc:/RobCo/PipOS/PageInv.qml" }
+        function onDataPressed() { page.source = "qrc:/RobCo/PipOS/PageData.qml" }
+        function onMapPressed() { page.source = "qrc:/RobCo/PipOS/PageMap.qml" }
+        function onRadioPressed() { page.source = "qrc:/RobCo/PipOS/PageRadio.qml" }
     }
 
     states: [

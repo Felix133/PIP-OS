@@ -37,8 +37,9 @@ qt_add_qml_module(appPipOS
         settings/DwellerSettings.qml
         settings/InterfaceSettings.qml
     SOURCES
-        constants.h constants.cpp
+        bootscreen.h bootscreen.cpp
         dweller.h dweller.cpp
+        inputeventhandler.h inputeventhandler.cpp
 )
 
 qt_add_resources(appPipOS "fonts"
