@@ -7,7 +7,7 @@
 
 #include "bootscreen.h"
 #include "inputeventhandler.h"
-
+#include "dweller.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +35,10 @@ int main(int argc, char *argv[])
     InputEventHandler* inputHandler = new InputEventHandler();
     app.installEventFilter(inputHandler);
     context->setContextProperty("inputHandler", inputHandler);
+
+    // Dweller
+    Dweller* dweller = new Dweller();
+    context->setContextProperty("dweller", dweller);
 
     const QUrl url(QStringLiteral("qrc:/RobCo/PipOS/Main.qml"));
     QObject::connect(
