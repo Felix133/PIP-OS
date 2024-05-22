@@ -38,9 +38,10 @@ qt_add_qml_module(appPipOS
         settings/DwellerSettings.qml
         settings/InterfaceSettings.qml
     SOURCES
-        bootscreen.h bootscreen.cpp
-        dweller.h dweller.cpp
         inputeventhandler.h inputeventhandler.cpp
+        bootscreen.h bootscreen.cpp
+        dweller.h dweller.cpp    
+        inventory.h inventory.cpp
 )
 
 qt_add_resources(appPipOS "fonts"
@@ -55,14 +56,12 @@ qt_add_resources(appPipOS "fonts"
 qt_add_resources(appPipOS "images"
     PREFIX "/"
     FILES
-        images/body_0.png
         images/boot_vaultboy.png
-        images/head_0.png
-        images/head_1.png
         images/armor.svg
         images/defence.svg
         images/initiating.svg
         images/weapon.svg
+        images/status_normal.png
 
         images/ripped_ref.png
 )

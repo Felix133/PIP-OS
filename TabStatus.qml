@@ -80,27 +80,13 @@ Item {
         anchors {
             horizontalCenter: root.horizontalCenter
             verticalCenter: root.verticalCenter
-            verticalCenterOffset: -20
+            verticalCenterOffset: -55
         }
-        source: "/images/body_0.png"
+        source: "/images/status_normal.png"
         frameRate: 7.5
         interpolate: false
         frameWidth: 120
-        frameHeight: 180
-        frameCount: 8
-    }
-
-    AnimatedSprite {
-        anchors {
-            bottom: vaultboy.top
-            bottomMargin: -19
-            horizontalCenter: vaultboy.horizontalCenter
-        }
-        source: "/images/head_0.png"
-        frameRate: 7.5
-        interpolate: false
-        frameWidth: 120
-        frameHeight: 90
+        frameHeight: 250
         frameCount: 8
     }
 
