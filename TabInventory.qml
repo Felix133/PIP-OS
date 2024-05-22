@@ -4,4 +4,8 @@ import QtQuick.Layouts
 Rectangle {
     id: root
     color: "grey"
+
+    ListView {
+        model: []
+    }
 }
