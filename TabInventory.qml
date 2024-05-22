@@ -6,6 +6,14 @@ Rectangle {
     color: "grey"
 
     ListView {
-        model: []
+        anchors.fill: parent
+        model: inventory
+
+        delegate: Text {
+            color: "white"
+            text: model.displayRole
+            font.family: "Roboto Condensed"
+            font.pixelSize: 20
+        }
     }
 }

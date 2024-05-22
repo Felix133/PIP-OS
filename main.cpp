@@ -43,8 +43,9 @@ int main(int argc, char *argv[])
     context->setContextProperty("dweller", dweller);
 
     // Load the inventory from JSON
-    Inventory *inventory = new Inventory();
+    Inventory* inventory = new Inventory();
     inventory->LoadFromFile();
+    context->setContextProperty("inventory", inventory);
 
     const QUrl url(QStringLiteral("qrc:/RobCo/PipOS/Main.qml"));
     QObject::connect(
