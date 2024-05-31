@@ -4,11 +4,38 @@
 #include <QQmlContext>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QFile>
+#include <QStandardPaths>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 #include "bootscreen.h"
 #include "inputeventhandler.h"
 #include "dweller.h"
 #include "inventory.h"
+#include "inventorymodel.h"
+
+QJsonArray loadJsonArray(const QString &filePath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Couldn't open file:" << filePath;
+        return QJsonArray();
+    }
+
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonDocument document = QJsonDocument::fromJson(jsonData);
+    if (!document.isArray())
+    {
+        qWarning() << "JSON is not an array";
+        return QJsonArray();
+    }
+
+    return document.array();
+}
 
 
 int main(int argc, char *argv[])
@@ -43,8 +70,11 @@ int main(int argc, char *argv[])
     context->setContextProperty("dweller", dweller);
 
     // Load the inventory from JSON
-    Inventory* inventory = new Inventory();
-    inventory->LoadFromFile();
+
+    QJsonArray jsonArray = loadJsonArray(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)+".inventory.json");
+    InventoryModel *inventory = new InventoryModel();
+    inventory->addItems(jsonArray);
+
     context->setContextProperty("inventory", inventory);
 
     const QUrl url(QStringLiteral("qrc:/RobCo/PipOS/Main.qml"));

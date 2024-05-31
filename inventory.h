@@ -2,37 +2,23 @@
 #define INVENTORY_H
 
 #include <QAbstractListModel>
-#include <QJsonObject>
+#include <QList>
+#include "inventoryitem.h"
 
-class InventoryItem : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
-
-public:
-    explicit InventoryItem(const QString& name, QObject* parent = nullptr);
-    QString name() const;
-signals:
-    void nameChanged();
-private:
-    QString m_name;
-};
-
-class Inventory : public QAbstractListModel
-{
+class Inventory : public QAbstractListModel {
     Q_OBJECT
 
 public:
-    explicit Inventory(QObject *parent = nullptr);
+    void addItem(InventoryItem&& item);
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    QHash<int, QByteArray> roleNames() const override;
+    // Required overrides for QAbstractListModel
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    void LoadFromFile();
+    // Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 private:
-    QJsonValue m_rootObject;
-    QList<InventoryItem*> m_items;
+    QList<InventoryItem> m_items;
 };
 
 #endif // INVENTORY_H

@@ -33,15 +33,17 @@ qt_add_qml_module(appPipOS
         PageStat.qml
         TabStatus.qml
         TabInventory.qml
-        components/ItemStat.qml
-        components/ProgressBar.qml
+        ItemStat.qml
+        HealthBar.qml
         settings/DwellerSettings.qml
         settings/InterfaceSettings.qml
     SOURCES
         inputeventhandler.h inputeventhandler.cpp
         bootscreen.h bootscreen.cpp
-        dweller.h dweller.cpp    
+        dweller.h dweller.cpp
         inventory.h inventory.cpp
+        inventoryitem.h inventoryitem.cpp
+        inventorymodel.h inventorymodel.cpp
 )
 
 qt_add_resources(appPipOS "fonts"

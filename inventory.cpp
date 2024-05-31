@@ -1,88 +1,91 @@
-#include "inventory.h"
 #include <QFile>
 #include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDebug>
+#include "inventory.h"
+#include "inventoryitem.h"
 
-QString InventoryItem::name() const
+
+void Inventory::addItem(InventoryItem &&item)
 {
-    return m_name;
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_items.append(std::move(item)); // Move the item into the list
+    endInsertRows();
 }
 
-Inventory::Inventory(QObject *parent) : QAbstractListModel(parent) {}
-
-int Inventory::rowCount(const QModelIndex& parent) const
+// Implement other required functions for QAbstractListModel
+int Inventory::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-        return 0; // No children for valid parent indices
-    return m_items.size();
+    Q_UNUSED(parent);
+    return m_items.count();
 }
 
-QVariant Inventory::data(const QModelIndex& index, int role) const
+QVariant Inventory::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid() || index.row() >= m_items.size())
         return QVariant();
 
-    if (role == Qt::DisplayRole) {
-        // Return the name property of the custom object
-        return m_items.at(index.row())->name();
+    const InventoryItem &item = m_items[index.row()];
+    if (role == Qt::DisplayRole)
+    {
+        return item.name(); // Adjust according to the role
     }
-
+    // Add other roles as needed
     return QVariant();
 }
 
-QHash<int, QByteArray> Inventory::roleNames() const
-{
-    QHash<int, QByteArray> roles;
-    roles[Qt::DisplayRole] = "displayRole"; // Role name for QML
-    return roles;
-}
+// Qt::ItemFlags Inventory::flags(const QModelIndex &index) const {
+//     if (!index.isValid())
+//         return Qt::NoItemFlags;
+//     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+// }
 
-void Inventory::LoadFromFile(){
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)+".inventory.json");
-    qDebug() << "Opening file at" << file.fileName();
-    if(!file.open(QIODevice::ReadOnly)) {
-        qWarning() << "Inventory file open error";
-        return;
-    }
+// void Inventory::LoadFromFile(){
+//     QFile file(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)+".inventory.json");
+//     qDebug() << "Opening file at" << file.fileName();
+//     if(!file.open(QIODevice::ReadOnly)) {
+//         qWarning() << "Inventory file open error";
+//         return;
+//     }
 
-    QJsonParseError parseError;
-    QByteArray content = file.readAll();
-    file.close();
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(content, &parseError);
+//     QJsonParseError parseError;
+//     QByteArray content = file.readAll();
+//     file.close();
+//     QJsonDocument jsonDocument = QJsonDocument::fromJson(content, &parseError);
 
-    if (parseError.error != QJsonParseError::NoError) {
-        qWarning() << "Parse error while loading JSON inventory, at offset" << parseError.offset << ":" << parseError.errorString();
-        return;
-    }
+//     if (parseError.error != QJsonParseError::NoError) {
+//         qWarning() << "Parse error while loading JSON inventory, at offset" << parseError.offset << ":" << parseError.errorString();
+//         return;
+//     }
 
-    QJsonObject jsonObject = jsonDocument.object();
+//     QJsonObject jsonObject = jsonDocument.object();
 
-    if (jsonObject.contains("Inventory") && jsonObject["Inventory"].isObject()) {
-        this->m_rootObject = jsonObject["Inventory"];
+//     if (jsonObject.contains("Inventory") && jsonObject["Inventory"].isObject()) {
+//         this->m_rootObject = jsonObject["Inventory"];
 
-        QJsonObject invPages = jsonObject["Inventory"].toObject();
+//         QJsonObject invPages = jsonObject["Inventory"].toObject();
 
-        for (const QString& page : invPages.keys()) {
-            if (!invPages[page].isArray()) {
-                continue;
-            }
+//         for (const QString& page : invPages.keys()) {
+//             if (!invPages[page].isArray()) {
+//                 continue;
+//             }
 
-            QJsonArray items = invPages[page].toArray();
-            for (const QJsonValue& itemv : items) {
-                if (!itemv.isObject()) {
-                    continue;
-                }
-                QJsonObject item = itemv.toObject();
-                qDebug() << item.value("count").toInt() << "x " << item.value("text").toString() ;
+//             QJsonArray items = invPages[page].toArray();
+//             for (const QJsonValue& itemv : items) {
+//                 if (!itemv.isObject()) {
+//                     continue;
+//                 }
+//                 // QJsonObject i = ;
+//                 // qDebug() << i.value("count").toInt() << "x " << i.value("text").toString() ;
 
-                // TODO: Idk what I'm doing wrong here
-                QString itemName = item.value("text").toString();
-                m_items.append(new InventoryItem(itemName));
-            }
-        }
-    }
-}
+//                 // addItem(InventoryItem(itemv.toObject()));
+//                 // item->setCount(i.value("count").toInt(1));
 
-
+//                 // m_items<<item;
+//                 // m_items.append);
+//             }
+//         }
+//     }
+// }
