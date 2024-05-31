@@ -74,7 +74,7 @@ C.Page {
                     color: "white"
                 }
 
-                ProgressBar {
+                HealthBar {
                     anchors {
                         top: parent.top
                         topMargin: 10

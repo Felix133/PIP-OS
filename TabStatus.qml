@@ -5,7 +5,7 @@ import QtMultimedia
 Item {
     id: root
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthHead
         width: 40
         height: 10
@@ -16,7 +16,7 @@ Item {
         }
     }
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthBody
         width: 40
         height: 10
@@ -27,7 +27,7 @@ Item {
         }
     }
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthLeftArm
         width: 40
         height: 10
@@ -39,7 +39,7 @@ Item {
         }
     }
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthRightArm
         width: 40
         height: 10
@@ -51,7 +51,7 @@ Item {
         }
     }
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthLeftLeg
         width: 40
         height: 10
@@ -63,7 +63,7 @@ Item {
         }
     }
 
-    ProgressBar {
+    HealthBar {
         progress: dweller.healthRightLeg
         width: 40
         height: 10
