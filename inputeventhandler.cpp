@@ -33,11 +33,11 @@ bool InputEventHandler::eventFilter(QObject *obj, QEvent *event)
         break;
 
     case Qt::Key_Up:
-        emit this->scrollUp();
+        emit this->scrollDown();
         break;
 
     case Qt::Key_Down:
-        emit this->scrollDown();
+        emit this->scrollUp();
         break;
 
     case Qt::Key_Left:
