@@ -31,8 +31,13 @@ qt_add_qml_module(appPipOS
         PageMap.qml
         PageRadio.qml
         PageStat.qml
-        TabStatus.qml
+        
+        TabCollections.qml
+        TabEffects.qml
         TabInventory.qml
+        TabSpecial.qml
+        TabStatus.qml
+        
         ItemStat.qml
         HealthBar.qml
         settings/DwellerSettings.qml
@@ -63,9 +68,18 @@ qt_add_resources(appPipOS "images"
         images/defence.svg
         images/initiating.svg
         images/weapon.svg
+        images/hydration.svg
         images/status_normal.png
 
-        images/ripped_ref.png
+        images/Strength.gif
+        images/Perception.gif
+        images/Endurance.gif
+        images/Charisma.gif
+        images/Intelligence.gif
+        images/Agility.gif
+        images/Luck.gif
+
+        images/ripped_ref_inv.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
