@@ -49,6 +49,9 @@ qt_add_qml_module(appPipOS
         inventory.h inventory.cpp
         inventoryitem.h inventoryitem.cpp
         inventorymodel.h inventorymodel.cpp
+
+        i2c/qi2c.h i2c/qi2c.cpp
+        i2c/pcf8574.h i2c/pcf8574.cpp
 )
 
 qt_add_resources(appPipOS "fonts"
