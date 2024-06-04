@@ -1,3 +1,5 @@
+#ifdef LINUX
+
 #ifndef PCF8574_H
 #define PCF8574_H
 
@@ -45,3 +47,4 @@ private:
 };
 
 #endif // PCF8574_H
+#endif

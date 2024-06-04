@@ -1,4 +1,5 @@
 #ifndef QI2C_H
+#ifdef LINUX
 #define QI2C_H
 
 #include <QObject>
@@ -54,4 +55,5 @@ private:
     int fd; //The generic connection to user's chosen I2C hardware
 };
 
+#endif // LINUX
 #endif // QI2C_H

@@ -1,3 +1,5 @@
+#ifdef LINUX
+
 #include "pcf8574.h"
 
 PCF8574::PCF8574(QObject *parent) : QObject(parent), m_mutex()
@@ -17,3 +19,4 @@ PCF8574::~PCF8574(){
 //     i2c->writeBit16(i2c_multiplexer_address, piVL6180X_bus, 0x1);
 //     piVL6180X->initialize();
 // }
+#endif

@@ -1,3 +1,4 @@
+#ifdef LINUX
 #include "qi2c.h"
 
 QI2C::QI2C(const uint8_t &i2c_bus, const uint8_t &i2c_address, QObject *parent) : QObject(parent), i2c_bus(i2c_bus), i2c_address(i2c_address)
@@ -401,3 +402,4 @@ bool QI2C::writeDoubleWord(uint16_t registerAddress, uint32_t data)
     }
     return true;
 }
+#endif
