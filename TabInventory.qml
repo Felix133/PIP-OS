@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts
 
-
 Rectangle {
     id: root
     color: "black"
@@ -11,9 +10,8 @@ Rectangle {
         color: "black"
         anchors {
             top: root.top
-            topMargin: 46
+            topMargin: 40
             left: root.left
-            leftMargin: 20
             bottom: root.bottom
             bottomMargin: 60
         }
@@ -41,7 +39,7 @@ Rectangle {
                     color: item.ListView.isCurrentItem ? "black" : "white"
                     text: (inventoryItem.quantity === 1) ? inventoryItem.name : "%1 (%2)".arg(inventoryItem.name).arg(inventoryItem.quantity)
                     font.family: "Roboto Condensed"
-                    font.pixelSize: 28
+                    font.pixelSize: 26
                 }
 
                 Text {
@@ -49,7 +47,7 @@ Rectangle {
                     color: item.ListView.isCurrentItem ? "black" : "white"
                     text: "¢"
                     font.family: "Roboto Condensed"
-                    font.pixelSize: 28
+                    font.pixelSize: 26
                 }
 
                 Text {
@@ -57,7 +55,7 @@ Rectangle {
                     color: item.ListView.isCurrentItem ? "black" : "white"
                     text: "¬"
                     font.family: "Roboto Condensed"
-                    font.pixelSize: 28
+                    font.pixelSize: 26
                 }
 
                 Rectangle { Layout.fillWidth: true }
@@ -88,7 +86,7 @@ Rectangle {
             color: "white"
             text: list.currentItem.inventoryItem.name
             font.family: "Roboto Condensed"
-            font.pixelSize: 28
+            font.pixelSize: 26
         }
 
         ListView {
