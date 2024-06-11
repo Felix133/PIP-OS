@@ -4,7 +4,7 @@ script:
   - rm -rf AppDir  | true
   - mkdir -p AppDir/usr/share/icons
   - touch AppDir/usr/share/icons/icon.png
-  - /opt/Qt-arm64-6.7.1/bin/qt-cmake ../PipOS -DCMAKE_BUILD_TYPE=Release
+  - /opt/Qt-arm64-6.7.1/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
   - make install DESTDIR=AppDir
   - mkdir -p AppDir/opt/Qt-arm64-6.7.1/qml
   - cp -r /opt/Qt-arm64-6.7.1/qml/Qt AppDir/opt/Qt-arm64-6.7.1/qml/
