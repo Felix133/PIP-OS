@@ -6,10 +6,11 @@ stages:
 appimage-builder:
   stage: build
   image: 
-    name: carlonluca/qt-dev:6.7.1
-    entrypoint: [/bin/bash, -c]
+    name: "carlonluca/qt-dev:6.7.1"
+    entrypoint: [""]
   script:
-    - mkdir build && cd build
+    - mkdir build
+    - cd build
     - appimage-builder --recipe ../AppImageBuilder.yml
   artifacts:
     paths:
