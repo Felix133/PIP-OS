@@ -7,8 +7,6 @@ Rectangle {
     id: radio
     color: "black"
 
-    state: list.currentItem.stat
-
     property int activeStation: -1
 
     FolderListModel {
