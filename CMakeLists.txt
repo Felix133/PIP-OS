@@ -69,14 +69,12 @@ qt_add_resources(appPipOS "fonts"
 qt_add_resources(appPipOS "images"
     PREFIX "/"
     FILES
-        images/boot_vaultboy.png
         images/armor.svg
         images/defence.svg
-        images/initiating.svg
         images/weapon.svg
         images/hydration.svg
-        images/status_normal.png
         images/status_ok.gif
+        images/initiating.gif
         images/radio_axis.svg
 
         images/Strength.gif
@@ -86,8 +84,6 @@ qt_add_resources(appPipOS "images"
         images/Intelligence.gif
         images/Agility.gif
         images/Luck.gif
-
-        images/ripped_ref_inv.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -7,160 +7,149 @@ Rectangle {
 
     signal complete()
 
+    state: ""
+
     BootScreen {
         id: constants
     }
 
+    // Only start boot once component has loaded
+    Component.onCompleted: root.state = "boot"
+
+    // Scrolling random character phase
     Text {
         id: bootText
-        text: constants.bootingText
-        font.pixelSize: 16
+
         anchors {
             top: root.bottom
             topMargin: 0
             left: root.left
             leftMargin: 64
         }
+
         color: "white"
+        text: constants.bootingText
+        font.pixelSize: 16
         font.family: "Share-TechMono Regular"
-        states: State {
-            name: "animating"
-            AnchorChanges { target: bootText; anchors.bottom: root.top; anchors.top: undefined }
-        }
-
-        transitions: Transition {
-            AnchorAnimation { duration: 3500; easing.type: Easing.InQuad }
-        }
-
-        Component.onCompleted: bootText.state = "animating"
     }
 
-    property string currentSystemText: ""
-    property int currentIndex: 0
-
+    // Information about system specs phase
     Text {
         id: systemText
-        text: root.currentSystemText
-        font.pixelSize: 22
+
+        property int currentIndex: 0
+
         anchors {
             top: root.top
             topMargin: 30
             left: root.left
             leftMargin: 75
         }
+
         color: "white"
+        text: ""
+        font.pixelSize: 22
         font.family: "Share-TechMono Regular"
 
-        states: State {
-            name: "animating"
-            AnchorChanges { target: systemText; anchors.bottom: root.top; anchors.top: undefined }
-        }
-
-        transitions: Transition {
-            AnchorAnimation { duration: 600; easing.type: Easing.Linear }
-        }
-    }
-
-    Timer {
-        id: systemTextTimer
-        interval: 20
-        running: false
-        repeat: true
-        onTriggered: {
-            if (root.currentIndex < constants.systemText.length) {
-                root.currentSystemText += constants.systemText.charAt(root.currentIndex);
-                root.currentIndex++;
-            } else {
-                systemTextTimer.running = false
-                systemText.state = "animating"
+        Timer {
+            id: systemTextTimer
+            interval: 20
+            running: false
+            repeat: true
+            onTriggered: {
+                if (systemText.currentIndex < constants.systemText.length) {
+                    systemText.text += constants.systemText.charAt(systemText.currentIndex)
+                    systemText.currentIndex++
+                } else {
+                    systemTextTimer.running = false
+                    root.state = "initiating"
+                }
             }
         }
     }
 
-    AnimatedSprite {
-        visible: false
+    AnimatedImage {
         id: bootVaultBoy
+
         anchors {
             horizontalCenter: root.horizontalCenter
-            horizontalCenterOffset: -30
             verticalCenter: root.verticalCenter
             verticalCenterOffset: -20
         }
-        source: "/images/boot_vaultboy.png"
-        frameRate: 7.5
-        interpolate: false
-        frameWidth: 160
-        frameHeight: 230
-        frameCount: 8
-        loops: 1
+
+        source: "/images/initiating.gif"
+        visible: false
         paused: true
 
-        Timer {
-            id: bootVaultBoyTimer
-            interval: 2500
-            onTriggered: {
-                // TODO: This isn't starting the animation idk why
-                bootVaultBoy.paused = false
-                vaultBoyWait.start()
+        onFrameChanged: if(currentFrame === frameCount -1) {
+            playing = false
+            root.state = "booted"
+            complete()
+        }
+    }
+
+    states: [
+        State {
+            name: "boot"
+            AnchorChanges {
+                target: bootText
+                anchors.bottom: root.top
+                anchors.top: undefined
             }
-        }
-
-        // TODO: Need to work out how to stop the animation on the last frame
-        // Timer {
-        //     id: bootVaultBoyTimerTwo
-        //     interval: bootVaultBoy.frameCount * bootVaultBoy.frame - 1
-        //     running: bootVaultBoy.running
-        //     repeat: false
-        //     onTriggered: {
-        //         console.debug("Stopping the Vault Boy")
-        //         bootVaultBoy.running = false
-        //     }
-        // }
-
-        Timer {
-            id: vaultBoyWait
-            interval: 4000
-            repeat: false
-            onTriggered: { root.complete() }
-        }
-    }
-
-    Image {
-        visible: false
-        id: initiatingText
-        source: "/images/initiating.svg"
-        anchors.horizontalCenter: root.horizontalCenter
-        anchors.top: bootVaultBoy.bottom
-        anchors.topMargin: 50
-
-        OpacityAnimator on opacity {
-            from: 1
-            to: 0.5
-            duration: 1000
-            loops: Animation.Infinite
-            easing.type: Easing.InOutSine
-        }
-    }
-
-    // When boot text stops scrolling, start the system text animation
-    Connections {
-        target: bootText.transitions[0]
-        function onRunningChanged () {
-            if (!bootText.transitions[0].running) {
-                systemTextTimer.running = true
+        },
+        State {
+            name: "sysinfo"
+            PropertyChanges {
+                target: systemTextTimer
+                running: true
             }
-        }
-    }
-
-    // When the system text stops animating, show the vault boy initiating...
-    Connections {
-        target: systemText.transitions[0]
-        function onRunningChanged () {
-            if (!systemText.transitions[0].running) {
-                bootVaultBoy.visible = true
-                bootVaultBoyTimer.start()
-                initiatingText.visible = true
+        },
+        State {
+            name: "initiating"
+            AnchorChanges {
+                target: systemText
+                anchors.bottom: root.top
+                anchors.top: undefined
             }
+        },
+        State {
+            name: "initiating_vaultboy"
+            PropertyChanges {
+                target: systemText
+                visible: false
+            }
+            PropertyChanges {
+                target: bootVaultBoy
+                visible: true
+                paused: false
+            }
+        },
+        State {
+            name: "booted"
+
         }
-    }
+    ]
+
+    onStateChanged: console.debug("state changed to", root.state)
+
+    transitions: [
+        Transition {
+            to: "boot"
+            AnchorAnimation {
+                targets: [bootText]
+                duration: 3500
+                easing.type: Easing.InQuad
+            }
+            onRunningChanged: if (root.state === "boot" && !running) root.state = "sysinfo"
+        },
+        Transition {
+            to: "initiating"
+            AnchorAnimation {
+                targets: [systemText]
+                duration: 600
+                easing.type: Easing.Linear
+            }
+            onRunningChanged: if (root.state === "initiating" && !running) root.state = "initiating_vaultboy"
+        }
+    ]
 }
