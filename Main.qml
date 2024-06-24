@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Effects
 
+import "qml/Layout" as Layout
+
 Window {
     id: win
     width: 730
@@ -11,7 +13,8 @@ Window {
     title: qsTr("PIP-OS V7.1.0.8")
 
     color: "black"
-    MainState {
+
+    Layout.MainState {
         id: main
         width: 730
         height: 600
