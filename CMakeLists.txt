@@ -2,6 +2,9 @@ project(PipOS LANGUAGES CXX)
 
 cmake_minimum_required(VERSION 3.22)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GPIOD REQUIRED libgpiod)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -16,6 +19,7 @@ set(SOURCES
     src/hardwareinput.cpp
     src/inventory.cpp
     src/inventoryitem.cpp
+    src/gpio.cpp
 )
 
 set(HEADER
@@ -28,6 +32,7 @@ set(HEADER
     inc/public/PipOS/buttons.h
     inc/public/PipOS/inventory.h
     inc/public/PipOS/inventoryitem.h
+    inc/public/PipOS/gpio.h
 )
 
 set(QML
@@ -72,6 +77,9 @@ target_include_directories(
 # Note making this public is so that *_qmltyperegistrations.cpp can find the needed include
 target_include_directories(PipOSApp PUBLIC src/ inc/public/PipOS)
 
+# Also include libgpiod
+target_include_directories(PipOSApp PRIVATE ${GPIOD_INCLUDE_DIRS})
+
 qt_add_qml_module(PipOSApp
     URI PipOSApp
     OUTPUT_DIRECTORY
@@ -86,7 +94,9 @@ target_link_libraries(
     PUBLIC
     Qt6::Quick
     Qt6::Gui
-    Qt6::Core)
+    Qt6::Core
+    ${GPIOD_LIBRARIES}
+    gpiodcxx)
 
 qt_add_executable(PipOS  main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE PipOSApp PipOSAppplugin Qt6::Gui)
