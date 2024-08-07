@@ -19,7 +19,7 @@ AppDir:
     name: PIP-OS
     icon: icon.png
     version: latest
-    exec: usr/local/bin/appPipOS
+    exec: usr/local/bin/PipOS
     exec_args: $@
   runtime:
     env:

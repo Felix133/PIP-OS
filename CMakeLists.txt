@@ -1,6 +1,6 @@
 project(PipOS LANGUAGES CXX)
 
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
@@ -26,8 +26,6 @@ set(HEADER
     inc/public/PipOS/inputeventhandler.h
     inc/public/PipOS/hardwareinput.h
     inc/public/PipOS/buttons.h
-    inc/public/PipOS/pigpio.h
-    inc/public/PipOS/pigpiod_if2.h
     inc/public/PipOS/inventory.h
     inc/public/PipOS/inventoryitem.h
 )
@@ -96,10 +94,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE PipOSApp PipOSAppplugin Qt6::Gui)
 # qt_standard_project_setup()
 
 
-if(UNIX)
-    target_link_libraries(PipOSApp PUBLIC /usr/lib/libpigpiod_if2.so.1)
-endif()
-
 qt_add_resources(PipOSApp "fonts"
     PREFIX "/"
     FILES
@@ -150,8 +144,8 @@ qt_add_resources(PipOSApp "images"
 
 
 # include(GNUInstallDirs)
-# install(TARGETS ${PROJECT_NAME}
-#     BUNDLE DESTINATION .
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
+install(TARGETS ${PROJECT_NAME}
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)

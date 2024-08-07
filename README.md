@@ -2,6 +2,27 @@
 
 ##### Copyright 2075 RobCo
 
+### Pre-requisites
+
+```
+sudo apt install libegl-dev libopengl-dev libxkbcommon-dev libharfbuzz-dev libmd4c-dev
+```
+
+## Building from source
+The most straightforward way to simply _build_ this code is using a Docker container that already has all of the Qt install inside it.
+
+```sh
+docker run -it -v ${PWD}:/src --name qt-build --entrypoint=bash carlonluca/qt-dev:6.7.1
+
+# Inside the container create a build folder and build the app into an AppImage
+cd /src
+mkdir build; cd build
+appimage-builder --recipe ../AppImageBuilder.yml
+
+# Make the AppImage executable
+chmod 755 PIP-OS-latest-aarch64.AppImage
+```
+
 ## Extracting Vault Boy Sprites
 
 SWF files are extracted from the game using BSA Browser, condition clips exist in `interfaces/components/conditionclips`, for F76 the archive is `SeventySix - Interface.ba2`. From the files in Fallout 76 there are both full colour and monochromatic versions, the latter have the `_mono` postfix. The `.swf` files are opened with JPEXS, ~~each shape is exported as SVG and arranged in a sprite sheet with fixed width frames (120px), sprite sheets are then exported as transparent PNG and rendered using an `AnimatedSprite` in QML. When inspecting the body frames in JPEXS you can find the anchor point which is used for aligning the head elements, each body is a seperate SWF and then all of the heads are in the same SWF, each head needs alignment with the alignment points on the body frames.~~
@@ -26,3 +47,4 @@ SWF files are extracted from the game using BSA Browser, condition clips exist i
 
 - load the GIF up in CompressOrDie (https://processing.compress-or-die.com/gif-process)
   - set the colors to 16, this should remove the duplicate frames and also squash the colors resulting in a ~95% smaller file
+
