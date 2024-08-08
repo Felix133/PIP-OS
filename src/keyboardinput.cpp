@@ -1,8 +1,7 @@
-#include "inputeventhandler.h"
+#include "keyboardinput.h"
 
 namespace PipOS {
-
-bool InputEventHandler::eventFilter(QObject *obj, QEvent *event)
+bool KeyboardEventHandler::eventFilter(QObject *obj, QEvent *event)
 {
     // standard event processing for non key press
     if (event->type() != QEvent::KeyPress) {

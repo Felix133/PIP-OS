@@ -23,7 +23,7 @@ set(SOURCES
     src/dweller.cpp
     src/settings.cpp
     src/buttons.cpp
-    src/inputeventhandler.cpp
+    src/keyboardinput.cpp
     src/hardwareinput.cpp
     src/inventory.cpp
     src/inventoryitem.cpp
@@ -36,6 +36,7 @@ set(HEADER
     inc/public/PipOS/settings.h
     inc/public/PipOS/dweller.h
     inc/public/PipOS/inputeventhandler.h
+    inc/public/PipOS/keyboardinput.h
     inc/public/PipOS/hardwareinput.h
     inc/public/PipOS/buttons.h
     inc/public/PipOS/inventory.h

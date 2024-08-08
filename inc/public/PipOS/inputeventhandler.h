@@ -1,6 +1,3 @@
-#ifndef INPUTEVENTHANDLER_H
-#define INPUTEVENTHANDLER_H
-
 #include <QObject>
 #include <QKeyEvent>
 
@@ -12,9 +9,6 @@ class InputEventHandler : public QObject
 
 public:
     explicit InputEventHandler(QObject *parent = nullptr) : QObject(parent) {}
-
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
     void statPressed();
@@ -34,5 +28,3 @@ signals:
     void button4Press();
 };
 } // namespace PipOS
-
-#endif // INPUTEVENTHANDLER_H

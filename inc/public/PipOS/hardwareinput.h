@@ -1,38 +1,41 @@
-#ifndef HARDWAREINPUT_H
-#define HARDWAREINPUT_H
+// gpiomonitor.h
+#pragma once
 
+#include <QMutex>
 #include <QObject>
 #include <QThread>
+#include <QWaitCondition>
+#include "gpio.h"
+#include "inputeventhandler.h"
 
 namespace PipOS {
-class InputWatcher : public QObject
+class HardwareEventHandler : public InputEventHandler
 {
-    Q_OBJECT
-
 public:
-    explicit InputWatcher(QObject *parent = nullptr);
+    HardwareEventHandler(QObject *parent = nullptr);
+    ~HardwareEventHandler() override;
 
-public slots:
-    void watchForEvents();
+    void startMonitoring();
+    void stopMonitoring();
 
-signals:
-    void inputEvent();
-};
+protected:
+    void run();
 
-class HardwareInput : public QObject
-{
-    Q_OBJECT
-    QThread inputThread;
+    static constexpr int SW_STAT = 1;
+    static constexpr int SW_ITEM = 2;
+    static constexpr int SW_DATA = 3;
+    static constexpr int ENC_A = 4;
+    static constexpr int ENC_B = 5;
+    static constexpr int ENC_SW = 0;
 
-public:
-    explicit HardwareInput(QObject *parent = nullptr);
+    std::array<bool, 6> pinStates{};
+    std::array<bool, 2> prevEncoderStates{};
 
-public slots:
-    void handleEvents();
-
-signals:
-    void operate();
+private:
+    GPIO gpio;
+    QThread workerThread;
+    QMutex mutex;
+    QWaitCondition condition;
+    bool abort;
 };
 } // namespace PipOS
-
-#endif // HARDWAREINPUT_H
