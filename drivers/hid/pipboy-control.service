@@ -1,0 +1,12 @@
+[Unit]
+Description=PipBoy HID uinput driver
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/control-daemon
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
