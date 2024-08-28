@@ -70,11 +70,12 @@ Rectangle {
         clip: true
         anchors {
             top: root.top
+            topMargin: -42
             left: listMain.right
             leftMargin: 20
             right: root.right
             bottom: root.bottom
-            bottomMargin: 60
+            // bottomMargin: 60
         }
 
         // TODO: GIF seems to cut short on loop
@@ -92,6 +93,7 @@ Rectangle {
         Text {
             id: specialDescription
             anchors.top: specialAnimation.bottom
+            anchors.topMargin: -40
             text: ""
             color: "white"
             font.family: "Roboto Condensed"
