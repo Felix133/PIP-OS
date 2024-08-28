@@ -4,6 +4,7 @@ namespace PipOS {
 Dweller::Dweller(QObject *parent)
     : QObject{parent}
 {
+    qInfo() << "Dweller attributes being loaded from" << m_settings.fileName();
     m_inventory = std::make_shared<InventoryModel>(new InventoryModel());
 }
 
