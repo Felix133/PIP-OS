@@ -5,10 +5,11 @@
 ### Pre-requisites
 
 ```
-sudo apt install libegl-dev libopengl-dev libxkbcommon-dev libharfbuzz-dev libmd4c-dev
+sudo apt install libegl-dev libopengl-dev libxkbcommon-dev libharfbuzz-dev libmd4c-dev libpulse0
 ```
 
 ## Building from source
+
 The most straightforward way to simply _build_ this code is using a Docker container that already has all of the Qt install inside it.
 
 ```sh
@@ -47,4 +48,3 @@ SWF files are extracted from the game using BSA Browser, condition clips exist i
 
 - load the GIF up in CompressOrDie (https://processing.compress-or-die.com/gif-process)
   - set the colors to 16, this should remove the duplicate frames and also squash the colors resulting in a ~95% smaller file
-
