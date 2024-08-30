@@ -46,4 +46,9 @@ QString Settings::radioStationLocation() const
     return m_settings.value("Radio/directory", QDir::currentPath()).toString();
 }
 
+QString Settings::inventoryFileLocation() const
+{
+    return m_settings.value("Inventory/directory", QDir::currentPath()).toString();
+}
+
 } // namespace PipOS

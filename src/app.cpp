@@ -5,8 +5,6 @@
 #include <QFontDatabase>
 #include <QGuiApplication>
 #include <QInputDevice>
-#include <QJsonArray>
-#include <QJsonDocument>
 #include <QKeyEvent>
 #include <QObject>
 #include <QQmlApplicationEngine>
@@ -17,26 +15,6 @@
 #include "PipOS/app.h"
 #include "PipOS/bootscreen.h"
 #include "PipOS/hid.h"
-#include "PipOS/inventory.h"
-
-QJsonArray loadJsonArray(const QString &filePath) {
-  QFile file(filePath);
-  if (!file.open(QIODevice::ReadOnly)) {
-    qWarning() << "Couldn't open file:" << filePath;
-    return QJsonArray();
-  }
-
-  QByteArray jsonData = file.readAll();
-  file.close();
-
-  QJsonDocument document = QJsonDocument::fromJson(jsonData);
-  if (!document.isArray()) {
-    qWarning() << "JSON is not an array";
-    return QJsonArray();
-  }
-
-  return document.array();
-}
 
 namespace PipOS {
 App::App() : QObject(nullptr) {
@@ -66,9 +44,6 @@ void App::init() {
 
   m_mainWindowEngine = make_unique<QQmlApplicationEngine>();
 
-  // Access root context
-  // QQmlContext *context = m_mainWindowEngine->rootContext();
-
   qmlRegisterType<BootScreen>("BootScreen", 1, 0, "BootScreen");
 
   auto *guiAppInst =
@@ -78,18 +53,8 @@ void App::init() {
   m_mainWindowEngine->addImportPath(guiAppInst->applicationDirPath() + "/qml");
   guiAppInst->addLibraryPath(guiAppInst->applicationDirPath() + "/qml");
 
-  // Keyboard input handler
-  // HumanInterfaceDevice *hid = new HumanInterfaceDevice();
-
   m_hid = make_shared<HumanInterfaceDevice>();
   guiAppInst->installEventFilter(m_hid.get());
-  // context->setContextProperty("hid", m_hid.get());
-
-  // Load the inventory from JSON
-  QJsonArray jsonArray = loadJsonArray(
-      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-      ".inventory.json");
-  m_dweller->inventory()->addItems(jsonArray);
 
   m_mainWindowEngine->load(QUrl(QStringLiteral("qrc:/qml/PipOSApp/main.qml")));
 }

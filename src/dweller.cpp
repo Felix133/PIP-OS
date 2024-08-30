@@ -5,7 +5,6 @@ Dweller::Dweller(QObject *parent)
     : QObject{parent}
 {
     qInfo() << "Dweller attributes being loaded from" << m_settings.fileName();
-    m_inventory = std::make_shared<InventoryModel>(new InventoryModel());
 }
 
 QString Dweller::name() const
@@ -268,14 +267,6 @@ void Dweller::setHealthRightLeg(float newHealthRightLeg)
     emit healthRightLegChanged();
 }
 
-void Dweller::setInventory(InventoryModel *newInventory)
-{
-    if (m_inventory.get() == newInventory)
-        return;
-
-    m_inventory.reset(newInventory);
-    emit inventoryChanged(m_inventory.get());
-}
 
 QVariantList Dweller::collections()
 {

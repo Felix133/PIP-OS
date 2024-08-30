@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts
 import PipOS 1.0
+import "../JSONListModel"
 
 Rectangle {
     id: root
@@ -18,27 +19,37 @@ Rectangle {
         }
         width: 400
 
+        JSONListModel{
+            id: inventory
+            source: App.settings.inventoryFileLocation
+            sortKey: "text"
+            query: ""
+        }
+
         ListView {
             id: list
             anchors.fill: parent
-            model: App.dweller.inventory
+            model: inventory.model
             spacing: 5
+
             delegate: RowLayout {
                 id: item
                 property variant inventoryItem: model
 
                 width: ListView.view.width
 
+                // visible: (inventoryItem.filterFlag === 1024)
+
                 Rectangle {
                     color: item.ListView.isCurrentItem ? "black" : "white"
-                    opacity: (inventoryItem.equipped || false) ? 1 : 0
+                    opacity: inventoryItem.equipState
                     width: 12
                     height: 12
                 }
 
                 Text {
                     color: item.ListView.isCurrentItem ? "black" : "white"
-                    text: (inventoryItem.quantity === 1) ? inventoryItem.name : "%1 (%2)".arg(inventoryItem.name).arg(inventoryItem.quantity)
+                    text: (inventoryItem.count === 1) ? inventoryItem.text : "%1 (%2)".arg(inventoryItem.text).arg(inventoryItem.count)
                     font.family: "Roboto Condensed"
                     font.pixelSize: 26
                 }
@@ -85,7 +96,7 @@ Rectangle {
 
         Text {
             color: "white"
-            text: list.currentItem.inventoryItem.name
+            text: list.currentItem.inventoryItem.text
             font.family: "Roboto Condensed"
             font.pixelSize: 26
         }
@@ -105,6 +116,68 @@ Rectangle {
         }
     }
 
+
+    states: [
+        State{
+            name: "WEAPONS"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 2)]"
+            }
+        },
+        State{
+            name: "APPAREL"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 4)]"
+            }
+        },
+        State{
+            name: "AID"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 8)]"
+            }
+        },
+        State{
+            name: "MISC"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 512)]"
+            }
+        },
+        State{
+            name: "HOLO"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 8192)]"
+            }
+        },
+        State{
+            name: "NOTES"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 128)]"
+            }
+        },
+        State{
+            name: "JUNK"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 1024)]"
+            }
+        },
+        State{
+            name: "AMMO"
+            PropertyChanges {
+                target: inventory
+                query: "$[?(@.filterFlag == 4096)]"
+            }
+        }
+    ]
+
+    Component.onCompleted: console.log(state)
+
     Connections {
         target: App.hid
         function onUserActivity(a) {
@@ -116,7 +189,8 @@ Rectangle {
                 list.incrementCurrentIndex()
                 break
             case "BUTTON_SELECT":
-                console.log(list.currentItem.inventoryItem.name)
+                const item = list.currentItem.inventoryItem
+                console.log(item.HandleID, item.text)
                 break
             }
         }

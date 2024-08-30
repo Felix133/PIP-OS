@@ -7,7 +7,6 @@
 #include <QQmlEngine>
 #include <QSettings>
 #include <QtQml/qqmlregistration.h>
-#include "inventory.h"
 
 namespace PipOS {
 
@@ -76,10 +75,6 @@ class Dweller : public QObject
     Q_PROPERTY(float healthLeftLeg READ healthLeftLeg WRITE setHealthLeftLeg NOTIFY healthLeftLegChanged FINAL)
     Q_PROPERTY(float healthRightLeg READ healthRightLeg WRITE setHealthRightLeg NOTIFY healthRightLegChanged FINAL)
 
-    // Item inventory
-    Q_PROPERTY(
-        InventoryModel *inventory READ inventory WRITE setInventory NOTIFY inventoryChanged FINAL)
-
     // Collections inventory
     Q_PROPERTY(QVariantList collections READ collections CONSTANT FINAL)
 
@@ -110,7 +105,6 @@ public:
     float healthLeftLeg() const;
     float healthRightLeg() const;
 
-    InventoryModel *inventory() const { return m_inventory.get(); }
     QVariantList collections();
 
 public slots:
@@ -134,7 +128,6 @@ public slots:
     void setCurrentHealth(int newCurrentHealth);
     void setMaxAP(int newMapAP);
     void setCurrentAP(int newCurrentAP);
-    void setInventory(InventoryModel *newInventory);
 
 signals:
     void nameChanged();
@@ -157,11 +150,9 @@ signals:
     void healthRightArmChanged();
     void healthLeftLegChanged();
     void healthRightLegChanged();
-    void inventoryChanged(PipOS::InventoryModel *inventory);
 
 private:
     QSettings m_settings;
-    std::shared_ptr<InventoryModel> m_inventory;
 };
 } // namespace PipOS
 

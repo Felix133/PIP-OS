@@ -12,8 +12,6 @@ set(SOURCES
     src/bootscreen.cpp
     src/dweller.cpp
     src/settings.cpp
-    src/inventory.cpp
-    src/inventoryitem.cpp
 )
 
 set(HEADER
@@ -22,8 +20,6 @@ set(HEADER
     inc/public/PipOS/bootscreen.h
     inc/public/PipOS/settings.h
     inc/public/PipOS/dweller.h
-    inc/public/PipOS/inventory.h
-    inc/public/PipOS/inventoryitem.h
 )
 
 set(QML
@@ -47,6 +43,8 @@ set(QML
     qml/Tabs/TabInventory.qml
     qml/Tabs/TabRadio.qml
     qml/Tabs/TabSpecial.qml
+    qml/JSONListModel/JSONListModel.qml
+    qml/JSONListModel/jsonpath.js
 )
 
 # set(PIPOS_QML_MODULES_PATH "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/qml")

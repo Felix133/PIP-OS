@@ -7,16 +7,19 @@ import "../Tabs"
 
 C.Page {
     property alias subMenuIndex: subMenu.currentIndex
+    property variant tabNames: ["WEAPONS", "APPAREL", "AID", "MISC", "HOLO", "NOTES", "JUNK", "AMMO"]
 
     background: Rectangle { color: "black" }
 
     header: SubMenu {
         id: subMenu
-        model: ["WEAPONS", "ARMOR", "APPAREL", "FOOD/DRINK", "AID", "MISC", "HOLO", "NOTES", "JUNK", "AMMO"]
+        model: tabNames
         horizontalOffset: -80
     }
 
     TabInventory {
+        id: inventory
+        state: tabNames[subMenu.currentIndex]
         anchors.fill: parent
     }
 
