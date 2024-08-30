@@ -25,6 +25,7 @@ AppDir:
     env:
       QT_QPA_PLATFORM: eglfs
       QML2_IMPORT_PATH: $APPDIR/opt/Qt-arm64-6.7.1/qml
+      QML_XHR_ALLOW_FILE_READ: "1"
   files:
     include:
       - /usr/lib/aarch64-linux-gnu/libxcb-cursor.so.0
