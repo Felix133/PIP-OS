@@ -80,4 +80,5 @@ build/
 *dtbo
 
 # dpkg build tree
+*.deb
 drivers/hid/uinput/pipboy-hid/
