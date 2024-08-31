@@ -58,5 +58,5 @@ release_job:
   script:
     - echo "running release_job for $TAG"
     - |
-      ./release-cli-linux-arm64 create --name "Release ${APP_VERSION}" --tag-name ${APP_VERSION} \
+      ./release-cli-linux-arm64 create --name "PIP-OS ${APP_VERSION}" --tag-name ${APP_VERSION} \
         --assets-link "{\"name\":\"${APPIMAGE_NAME}\",\"url\":\"${PACKAGE_REGISTRY_URL}/${APPIMAGE_NAME}\"}"
