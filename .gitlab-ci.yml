@@ -43,6 +43,7 @@ upload:
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
     - *build_rules
+  dependencies: [appimage-builder]
   script:
     - 'curl --fail-with-body --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/${APPIMAGE_NAME} "${PACKAGE_REGISTRY_URL}/${APPIMAGE_NAME}"'
 
@@ -52,6 +53,7 @@ release_job:
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
     - *build_rules
+  dependencies: [upload]
   before_script:
     - wget https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-arm64
     - chmod 755 ./release-cli-linux-arm64
