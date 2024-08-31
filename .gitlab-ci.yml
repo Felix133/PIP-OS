@@ -21,7 +21,9 @@ appimage-builder:
 upload:
   stage: upload
   image: curlimages/curl:latest
-  dependencies: [appimage-builder]
+    needs:
+    - job: appimage-builder
+      artifacts: true
   before_script:
     - ls -lh
   script:
