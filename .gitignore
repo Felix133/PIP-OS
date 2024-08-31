@@ -23,7 +23,7 @@ tags
 .DS_Store
 .directory
 *.debug
-Makefile*
+# Makefile*
 *.prl
 *.app
 moc_*.cpp
@@ -78,3 +78,7 @@ build/
 
 # Compiled devicetree things
 *dtbo
+
+# dpkg build tree
+*.deb
+drivers/hid/uinput/pipboy-hid/
