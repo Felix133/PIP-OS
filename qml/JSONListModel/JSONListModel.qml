@@ -5,7 +5,7 @@
  */
 
 import QtQuick
-import "json-query.js" as JSONPath
+import "json-query.js" as JsonQuery
 
 Item {
     property string source: ""
@@ -60,7 +60,7 @@ Item {
 
         // If a query is specified use JSONPath to filter the data
         if ( jsonPathQuery !== "" ){
-            objectArray = new JSONPath.modules.JSONPath({ json: objectArray, path: jsonPathQuery});
+            objectArray = JsonQuery.modules(jsonPathQuery, { data: objectArray }).value || [];
         }
 
         return objectArray;

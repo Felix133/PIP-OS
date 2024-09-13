@@ -122,56 +122,56 @@ Rectangle {
             name: "WEAPONS"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 2)]"
+                query: "Inventory[**][*filterFlag=2]"
             }
         },
         State{
             name: "APPAREL"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 4)]"
+                query: "Inventory[**][*filterFlag=4]"
             }
         },
         State{
             name: "AID"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 8)]"
+                query: "Inventory[**][*filterFlag=8]"
             }
         },
         State{
             name: "MISC"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 512)]"
+                query: "Inventory[**][*filterFlag=512]"
             }
         },
         State{
             name: "HOLO"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 8192)]"
+                query: "Inventory[**][*filterFlag=8192]"
             }
         },
         State{
             name: "NOTES"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 128)]"
+                query: "Inventory[**][*filterFlag=128]"
             }
         },
         State{
             name: "JUNK"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 1024)]"
+                query: "Inventory[**][*filterFlag=1024]"
             }
         },
         State{
             name: "AMMO"
             PropertyChanges {
                 target: inventory
-                query: "$.Inventory.[?(@.filterFlag == 4096)]"
+                query: "Inventory[**][*filterFlag=4096]"
             }
         }
     ]
