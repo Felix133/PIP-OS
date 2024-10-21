@@ -8,7 +8,7 @@ import "../Layout"
 C.Page {
     id: root
     property alias subMenuIndex: subMenu.currentIndex
-
+    property int subMenuCenter
     property variant tabNames: ["STATUS", "EFFECTS", "SPECIAL", "COLLECTIONS"]
 
     background: Rectangle { color: "black" }
@@ -16,7 +16,7 @@ C.Page {
     header: SubMenu {
         id: subMenu
         model: tabNames
-        horizontalOffset: -228
+        centerPoint: subMenuCenter
     }
 
     state: tabNames[subMenu.currentIndex]

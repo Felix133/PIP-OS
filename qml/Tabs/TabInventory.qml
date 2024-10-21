@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts
+import QtMultimedia
 import PipOS 1.0
 import "../JSONListModel"
 
@@ -82,7 +83,7 @@ Rectangle {
     }
 
     Rectangle {
-        color: "black"
+        color: "#333"
         anchors {
             top: root.top
             topMargin: 46
@@ -94,28 +95,21 @@ Rectangle {
             bottomMargin: 60
         }
 
-        Text {
-            color: "white"
-            text: (list.currentItem && list.currentItem.inventoryItem) ? list.currentItem.inventoryItem.text : ''
-            font.family: "Roboto Condensed"
-            font.pixelSize: 26
-        }
-
         ListView {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+            anchors.fill: parent
+            model: list.currentItem.inventoryItem.itemCardInfoList
+            delegate: RowLayout {
+                Text{
+                    color: "white"
+                    text: model.text || ''
+                }
+                Text{
+                    color: "white"
+                    text: model.Value || ''
+                }
             }
-            height: 500
-
-            Rectangle { color: "#333"; height: 30 }
-            Rectangle { color: "#333"; height: 30 }
-            Rectangle { color: "#333"; height: 30 }
-            Rectangle { color: "#333"; height: 30 }
         }
     }
-
 
     states: [
         State{
@@ -176,15 +170,22 @@ Rectangle {
         }
     ]
 
+    SoundEffect {
+        id: sfxFocus
+        source: "/assets/sounds/item_focus.wav"
+    }
+
     Connections {
         target: App.hid
         function onUserActivity(a) {
             switch(a) {
             case "SCROLL_UP":
                 list.decrementCurrentIndex()
+                sfxFocus.play()
                 break
             case "SCROLL_DOWN":
                 list.incrementCurrentIndex()
+                sfxFocus.play()
                 break
             case "BUTTON_SELECT":
                 const item = list.currentItem.inventoryItem

@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Window
 import PipOS
 
 Item {
@@ -27,12 +28,16 @@ Item {
                 left: main.left
                 right: main.right
             }
-            activeTab: root.activePage
+            Component.onCompleted: {
+                mainNav.setActiveTab(activePage)
+                page.setSource(pageSources[activePage], {
+                    subMenuCenter: mainNav.activeTab ? mainNav.activeTab.x + mainNav.activeTab.width + 8 : 0
+                })
+            }
         }
 
         Loader {
             id: page
-            source: pageSources[activePage]
             anchors {
                 top: mainNav.bottom
                 left: main.left
@@ -57,10 +62,25 @@ Item {
         // }
     }
 
+
+
     Connections {
         target: App.hid
         function onUserActivity(a) {
-            if (a.startsWith("TAB_")) root.activePage = a.replace("TAB_", "")
+            if (a.startsWith("TAB_")) {
+                var tab = a.replace("TAB_", "")
+
+                if (root.activePage !== tab) {
+                    mainNav.setActiveTab(tab)
+
+                    // Passing the position of the subnav to all pages, the 8 is just to negate padding etc.
+                    page.setSource(pageSources[tab], {
+                        subMenuCenter: mainNav.activeTab.x + mainNav.activeTab.width + 8
+                    })
+                }
+
+                root.activePage = tab
+            }
         }
     }
 }

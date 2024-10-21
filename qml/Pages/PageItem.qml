@@ -7,6 +7,7 @@ import "../Tabs"
 
 C.Page {
     property alias subMenuIndex: subMenu.currentIndex
+    property int subMenuCenter
     property variant tabNames: ["WEAPONS", "APPAREL", "AID", "MISC", "HOLO", "NOTES", "JUNK", "AMMO"]
 
     background: Rectangle { color: "black" }
@@ -14,7 +15,7 @@ C.Page {
     header: SubMenu {
         id: subMenu
         model: tabNames
-        horizontalOffset: -80
+        centerPoint: subMenuCenter
     }
 
     TabInventory {

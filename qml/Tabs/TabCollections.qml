@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtMultimedia
 import PipOS 1.0
 
 Rectangle {
@@ -60,15 +61,22 @@ Rectangle {
         }
     }
 
+    SoundEffect {
+        id: sfxFocus
+        source: "/assets/sounds/item_focus.wav"
+    }
+
     Connections {
         target: App.hid
         function onUserActivity(a) {
             switch(a) {
             case "SCROLL_UP":
                 list.decrementCurrentIndex()
+                sfxFocus.play()
                 break
             case "SCROLL_DOWN":
                 list.incrementCurrentIndex()
+                sfxFocus.play()
                 break
             }
         }

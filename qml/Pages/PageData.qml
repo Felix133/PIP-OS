@@ -6,13 +6,14 @@ import "../Layout"
 
 Page {
     property alias subMenuIndex: subMenu.currentIndex
+    property int subMenuCenter
 
     background: Rectangle { color: "black" }
 
     header: SubMenu {
         id: subMenu
         model: ["MAIN", "SIDE", "DAILY", "EVENT"]
-        horizontalOffset: 70
+        centerPoint: subMenuCenter
     }
 
     footer: Rectangle {

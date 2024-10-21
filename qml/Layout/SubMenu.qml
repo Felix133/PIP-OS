@@ -1,9 +1,10 @@
 import QtQuick 2.15
+import QtMultimedia
 
 ListView {
     id: list
 
-    property int horizontalOffset: 0
+    property int centerPoint: 0
 
     signal goNext()
 
@@ -14,17 +15,22 @@ ListView {
     function goToNext() {
         if (currentIndex + 1 === model.length) currentIndex = 0
         else currentIndex = currentIndex + 1
+        sfxRotary.play()
     }
 
-    function goToStart() { currentIndex = 0 }
+    function goToStart() {
+        currentIndex = 0
+        sfxRotary.play()
+    }
 
     orientation: ListView.Horizontal
     spacing: 20
     height: 42
 
     highlightRangeMode: ListView.StrictlyEnforceRange
-    preferredHighlightBegin: (width / 2) - (currentItem.width / 2) + horizontalOffset
-    preferredHighlightEnd: (width / 2) + (currentItem.width / 2) + horizontalOffset
+    preferredHighlightBegin: centerPoint - (currentItem.width / 2)
+    preferredHighlightEnd: centerPoint + (currentItem.width / 2)
+    highlightResizeDuration: 0
 
     delegate: Text {
         text: modelData
@@ -37,6 +43,11 @@ ListView {
         opacity: 1.0 - ((index - list.currentIndex) > 0 ? (index - list.currentIndex) : (list.currentIndex - index)) * 0.34
     }
 
+    SoundEffect {
+        id: sfxRotary
+        source: "/assets/sounds/ui_pipboy_rotaryhorizontal_01.wav"
+    }
+
     // Debug selected item
     // highlight: Rectangle {
     //     border.color: "grey"
@@ -44,4 +55,3 @@ ListView {
     //     color: "black"
     // }
 }
-

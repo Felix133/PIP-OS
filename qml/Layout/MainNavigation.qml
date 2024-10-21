@@ -1,10 +1,33 @@
 import QtQuick 2.15
 import QtQuick.Layouts
+import QtMultimedia
 
 Rectangle {
     id: tabs
-    property alias activeTab: repeater.state
-    property list<string> tabs: ["STAT","ITEM","DATA","RADIO"]
+
+    property int activeTabIndex: 0
+    property list<string> allTabs: ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
+    property Rectangle activeTab: repeater.itemAt(activeTabIndex)
+
+    function findItemPosition(itemToFind) {
+        for (var i = 0; i < allTabs.length; ++i) {
+            if (allTabs[i] === itemToFind) {
+                return i; // Found the item; return its index
+            }
+        }
+        return -1; // Item not found
+    }
+
+    function setActiveTab(tab) {
+        activeTabIndex = findItemPosition(tab)
+        sfxRotary.play()
+    }
+
+    SoundEffect {
+        id: sfxRotary
+        source: "/assets/sounds/horizontal_tab.wav"
+    }
+
     color: "#000000000"
     height: 32
 
@@ -14,6 +37,7 @@ Rectangle {
             right: tabs.right
             bottom: tabs.bottom
         }
+
         height: 3
         color: "white"
     }
@@ -27,22 +51,23 @@ Rectangle {
             right: parent.right
             rightMargin: 75
         }
+
         Repeater {
             id: repeater
-            state: "STAT"
-            model: tabs.tabs
+            state: tabs.allTabs[tabs.activeTabIndex]
+            model: tabs.allTabs
 
-            Rectangle {
+            delegate: Rectangle {
                 Layout.fillWidth: true
                 color: "#000000000"
                 Rectangle {
-                    id: activeOutline
                     visible: repeater.state === modelData
                     anchors {
                         horizontalCenter: tabText.horizontalCenter
                         top:  tabText.top
                         topMargin: 20
                     }
+
                     width: tabText.implicitWidth + 16
                     height: 50
                     border.color: "white"

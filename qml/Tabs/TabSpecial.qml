@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Layouts
+import QtMultimedia
 import PipOS 1.0
 
 Rectangle {
@@ -181,8 +182,12 @@ Rectangle {
                 source: "/assets/images/Luck"
             }
         }
-
     ]
+
+    SoundEffect {
+        id: sfxFocus
+        source: "/assets/sounds/item_focus.wav"
+    }
 
     Connections {
         target: App.hid
@@ -190,9 +195,11 @@ Rectangle {
             switch(a) {
             case "SCROLL_UP":
                 specialList.decrementCurrentIndex()
+                sfxFocus.play()
                 break
             case "SCROLL_DOWN":
                 specialList.incrementCurrentIndex()
+                sfxFocus.play()
                 break
             }
         }
