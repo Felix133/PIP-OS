@@ -45,8 +45,8 @@ ListView {
 
     SoundEffect {
         id: sfxRotary
-        source: "/assets/sounds/ui_pipboy_rotaryhorizontal_01.wav"
-    }
+        source: "/assets/sounds/horizontal_tab.wav"
+    } 
 
     // Debug selected item
     // highlight: Rectangle {
