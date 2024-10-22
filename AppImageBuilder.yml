@@ -3,16 +3,16 @@ version: 1
 script:
   - rm -rf AppDir  | true
   - mkdir -p AppDir/usr/share/icons
+
   - touch AppDir/usr/share/icons/icon.png
-  - /opt/Qt-arm64-6.8.0/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
+  - ${QT_PATH}/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
   - make install DESTDIR=AppDir
-  - mkdir -p AppDir/opt/Qt-arm64-6.8.0/qml
-  - cp -r /opt/Qt-arm64-6.8.0/qml/Qt AppDir/opt/Qt-arm64-6.8.0/qml/
-  - cp -r /opt/Qt-arm64-6.8.0/qml/QtCore AppDir/opt/Qt-arm64-6.8.0/qml/
-  - cp -r /opt/Qt-arm64-6.8.0/qml/QtQml AppDir/opt/Qt-arm64-6.8.0/qml/
-  - cp -r /opt/Qt-arm64-6.8.0/qml/QtQuick AppDir/opt/Qt-arm64-6.8.0/qml/
-  - cp -r /opt/Qt-arm64-6.8.0/qml/QtMultimedia AppDir/opt/Qt-arm64-6.8.0/qml/
-  # - cp -r /opt/Qt-arm64-6.8.0/qml/QtGraphs AppDir/opt/Qt-arm64-6.8.0/qml/
+  - mkdir -p AppDir${QT_PATH}/qml
+  - cp -r ${QT_PATH}/qml/Qt AppDir${QT_PATH}/qml/
+  - cp -r ${QT_PATH}/qml/QtCore AppDir${QT_PATH}/qml/
+  - cp -r ${QT_PATH}/qml/QtQml AppDir${QT_PATH}/qml/
+  - cp -r ${QT_PATH}/qml/QtQuick AppDir${QT_PATH}/qml/
+  - cp -r ${QT_PATH}/qml/QtMultimedia AppDir${QT_PATH}/qml/
 
 AppDir:
   path: ./AppDir
@@ -26,7 +26,7 @@ AppDir:
   runtime:
     env:
       QT_QPA_PLATFORM: eglfs
-      QML2_IMPORT_PATH: $APPDIR/opt/Qt-arm64-6.8.0/qml
+      QML2_IMPORT_PATH: $APPDIR${QT_PATH}/qml
       QML_XHR_ALLOW_FILE_READ: "1"
   files:
     include:
@@ -36,42 +36,42 @@ AppDir:
       - /usr/lib/aarch64-linux-gnu/libicuuc.so.74
       - /usr/lib/aarch64-linux-gnu/libb2.so.1
       - /usr/lib/aarch64-linux-gnu/libicudata.so.74
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Core.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Gui.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Qml.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6EglFSDeviceIntegration.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6EglFsKmsGbmSupport.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6EglFsKmsSupport.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6LabsFolderListModel.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6LabsSettings.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Multimedia.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6MultimediaQuick.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6OpenGL.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QmlCore.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QmlLocalStorage.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QmlModels.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QmlWorkerScript.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Quick.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Graphs.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickControls2.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickEffects.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickLayouts.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6ShaderTools.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickControls2Basic.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickControls2Impl.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickControls2FusionStyleImpl.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6Svg.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6XcbQpa.so.6
-      - /opt/Qt-arm64-6.8.0/lib/libQt6QuickControls2Fusion.so.6
-      - /opt/Qt-arm64-6.8.0/plugins/egldeviceintegrations/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/xcbglintegrations/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/imageformats/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/multimedia/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/platforms/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/qmltooling/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/generic/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/platforminputcontexts/*.so
-      - /opt/Qt-arm64-6.8.0/plugins/platformthemes/*.so
+      - ${QT_PATH}/lib/libQt6Core.so.6
+      - ${QT_PATH}/lib/libQt6Gui.so.6
+      - ${QT_PATH}/lib/libQt6Qml.so.6
+      - ${QT_PATH}/lib/libQt6EglFSDeviceIntegration.so.6
+      - ${QT_PATH}/lib/libQt6EglFsKmsGbmSupport.so.6
+      - ${QT_PATH}/lib/libQt6EglFsKmsSupport.so.6
+      - ${QT_PATH}/lib/libQt6LabsFolderListModel.so.6
+      - ${QT_PATH}/lib/libQt6LabsSettings.so.6
+      - ${QT_PATH}/lib/libQt6Multimedia.so.6
+      - ${QT_PATH}/lib/libQt6MultimediaQuick.so.6
+      - ${QT_PATH}/lib/libQt6OpenGL.so.6
+      - ${QT_PATH}/lib/libQt6QmlCore.so.6
+      - ${QT_PATH}/lib/libQt6QmlLocalStorage.so.6
+      - ${QT_PATH}/lib/libQt6QmlModels.so.6
+      - ${QT_PATH}/lib/libQt6QmlWorkerScript.so.6
+      - ${QT_PATH}/lib/libQt6Quick.so.6
+      - ${QT_PATH}/lib/libQt6Graphs.so.6
+      - ${QT_PATH}/lib/libQt6QuickControls2.so.6
+      - ${QT_PATH}/lib/libQt6QuickEffects.so.6
+      - ${QT_PATH}/lib/libQt6QuickLayouts.so.6
+      - ${QT_PATH}/lib/libQt6ShaderTools.so.6
+      - ${QT_PATH}/lib/libQt6QuickControls2Basic.so.6
+      - ${QT_PATH}/lib/libQt6QuickControls2Impl.so.6
+      - ${QT_PATH}/lib/libQt6QuickControls2FusionStyleImpl.so.6
+      - ${QT_PATH}/lib/libQt6Svg.so.6
+      - ${QT_PATH}/lib/libQt6XcbQpa.so.6
+      - ${QT_PATH}/lib/libQt6QuickControls2Fusion.so.6
+      - ${QT_PATH}/plugins/egldeviceintegrations/*.so
+      - ${QT_PATH}/plugins/xcbglintegrations/*.so
+      - ${QT_PATH}/plugins/imageformats/*.so
+      - ${QT_PATH}/plugins/multimedia/*.so
+      - ${QT_PATH}/plugins/platforms/*.so
+      - ${QT_PATH}/plugins/qmltooling/*.so
+      - ${QT_PATH}/plugins/generic/*.so
+      - ${QT_PATH}/plugins/platforminputcontexts/*.so
+      - ${QT_PATH}/plugins/platformthemes/*.so
     exclude:
       - lib/aarch64-linux-gnu/lib*.so*
       - usr/share/doc/*/README.*
