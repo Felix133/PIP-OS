@@ -1,5 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window
+import QtMultimedia
+
 import PipOS
 
 Item {
@@ -7,7 +9,7 @@ Item {
 
     signal complete()
 
-    property string activePage: "STAT"
+    // property string activePage: "STAT"
     property var pageSources: {
         "STAT":  "qrc:/qml/PipOSApp/qml/Pages/PageStat.qml",
         "ITEM":  "qrc:/qml/PipOSApp/qml/Pages/PageItem.qml",
@@ -28,9 +30,9 @@ Item {
                 left: main.left
                 right: main.right
             }
-            Component.onCompleted: {
-                mainNav.setActiveTab(activePage)
-                page.setSource(pageSources[activePage], {
+            onActiveTabChanged: {
+                if (!mainNav.activeTab) return
+                page.setSource(root.pageSources[mainNav.activeTab.text], {
                     subMenuCenter: mainNav.activeTab ? mainNav.activeTab.x + mainNav.activeTab.width + 8 : 0
                 })
             }
@@ -62,24 +64,22 @@ Item {
         // }
     }
 
-
+    SoundEffect {
+        id: sfxRotary
+        source: "/assets/sounds/horizontal_tab.wav"
+    }
 
     Connections {
         target: App.hid
         function onUserActivity(a) {
             if (a.startsWith("TAB_")) {
                 var tab = a.replace("TAB_", "")
+                var requestedPageSource = root.pageSources[tab]
 
-                if (root.activePage !== tab) {
+                if (page.source != requestedPageSource) {
                     mainNav.setActiveTab(tab)
-
-                    // Passing the position of the subnav to all pages, the 8 is just to negate padding etc.
-                    page.setSource(pageSources[tab], {
-                        subMenuCenter: mainNav.activeTab.x + mainNav.activeTab.width + 8
-                    })
+                    sfxRotary.play()
                 }
-
-                root.activePage = tab
             }
         }
     }

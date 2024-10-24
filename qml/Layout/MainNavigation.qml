@@ -1,13 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Layouts
-import QtMultimedia
 
 Rectangle {
-    id: tabs
+    id: root
 
     property int activeTabIndex: 0
     property list<string> allTabs: ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
-    property Rectangle activeTab: repeater.itemAt(activeTabIndex)
+    property MainNavigationTab activeTab
 
     function findItemPosition(itemToFind) {
         for (var i = 0; i < allTabs.length; ++i) {
@@ -20,12 +19,7 @@ Rectangle {
 
     function setActiveTab(tab) {
         activeTabIndex = findItemPosition(tab)
-        sfxRotary.play()
-    }
-
-    SoundEffect {
-        id: sfxRotary
-        source: "/assets/sounds/horizontal_tab.wav"
+        activeTab = repeater.itemAt(root.activeTabIndex)
     }
 
     color: "#000000000"
@@ -33,9 +27,9 @@ Rectangle {
 
     Rectangle {
         anchors {
-            left: tabs.left
-            right: tabs.right
-            bottom: tabs.bottom
+            left: root.left
+            right: root.right
+            bottom: root.bottom
         }
 
         height: 3
@@ -54,49 +48,17 @@ Rectangle {
 
         Repeater {
             id: repeater
-            state: tabs.allTabs[tabs.activeTabIndex]
-            model: tabs.allTabs
+            state: root.allTabs[root.activeTabIndex]
+            model: root.allTabs
 
-            delegate: Rectangle {
+            MainNavigationTab {
                 Layout.fillWidth: true
-                color: "#000000000"
-                Rectangle {
-                    visible: repeater.state === modelData
-                    anchors {
-                        horizontalCenter: tabText.horizontalCenter
-                        top:  tabText.top
-                        topMargin: 20
-                    }
+                active: repeater.state === modelData
+                text: modelData
+            }
 
-                    width: tabText.implicitWidth + 16
-                    height: 50
-                    border.color: "white"
-                    border.width: 1
-                    color: "#000000000"
-
-                    // Blank out a portion of the outline
-                    Rectangle {
-                        anchors {
-                            top: parent.top
-                            horizontalCenter: parent.horizontalCenter
-                        }
-                        width: tabText.implicitWidth + 2
-                        height: 2
-                        color: "black"
-                    }
-                }
-
-                Text {
-                    id: tabText
-                    anchors.fill: parent
-                    text: modelData
-                    color: "white"
-                    font {
-                        family: "Roboto Condensed Bold"
-                        pixelSize: 32
-                    }
-                    horizontalAlignment: Text.AlignHCenter
-                }
+            Component.onCompleted: {
+                activeTab = repeater.itemAt(root.activeTabIndex)
             }
         }
     }

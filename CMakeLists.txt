@@ -32,6 +32,7 @@ set(QML
     qml/Layout/MainLayout.qml
     qml/Layout/MainFooter.qml
     qml/Layout/MainNavigation.qml
+    qml/Layout/MainNavigationTab.qml
     qml/Layout/SubMenu.qml
     qml/Layout/MainState.qml
     qml/Pages/PageStat.qml
