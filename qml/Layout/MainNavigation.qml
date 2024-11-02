@@ -8,11 +8,12 @@ Rectangle {
     property list<string> allTabs: ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
     property MainNavigationTab activeTab
 
+    color: "#000000000"
+    height: 32
+
     function findItemPosition(itemToFind) {
         for (var i = 0; i < allTabs.length; ++i) {
-            if (allTabs[i] === itemToFind) {
-                return i; // Found the item; return its index
-            }
+            if (allTabs[i] === itemToFind) { return i; }
         }
         return -1; // Item not found
     }
@@ -21,9 +22,6 @@ Rectangle {
         activeTabIndex = findItemPosition(tab)
         activeTab = repeater.itemAt(root.activeTabIndex)
     }
-
-    color: "#000000000"
-    height: 32
 
     Rectangle {
         anchors {
@@ -52,13 +50,14 @@ Rectangle {
             model: root.allTabs
 
             MainNavigationTab {
+                required property string modelData
                 Layout.fillWidth: true
                 active: repeater.state === modelData
                 text: modelData
             }
 
             Component.onCompleted: {
-                activeTab = repeater.itemAt(root.activeTabIndex)
+                root.activeTab = repeater.itemAt(root.activeTabIndex)
             }
         }
     }

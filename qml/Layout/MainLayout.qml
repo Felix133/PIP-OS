@@ -9,7 +9,6 @@ Item {
 
     signal complete()
 
-    // property string activePage: "STAT"
     property var pageSources: {
         "STAT":  "qrc:/qml/PipOSApp/qml/Pages/PageStat.qml",
         "ITEM":  "qrc:/qml/PipOSApp/qml/Pages/PageItem.qml",
