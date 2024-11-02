@@ -28,9 +28,12 @@ private:
         {Qt::Key_F3, "TAB_DATA"},
         {Qt::Key_F4, "TAB_MAP"},
         {Qt::Key_F5, "TAB_RADIO"},
+        {Qt::Key_Right, "SUB_TAB_NEXT"},
+        {Qt::Key_Left, "SUB_TAB_PREVIOUS"},
         {Qt::Key_Up, "SCROLL_UP"},
         {Qt::Key_Down, "SCROLL_DOWN"},
         {Qt::Key_Space, "BUTTON_SELECT"},
+        {Qt::Key_Escape, "APP_QUIT"},
     };
 
 signals:
