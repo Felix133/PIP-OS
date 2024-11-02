@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import QtMultimedia
 
+import PipOS
+
 ListView {
     id: list
 
@@ -15,6 +17,12 @@ ListView {
     function goToNext() {
         if (currentIndex + 1 === model.length) currentIndex = 0
         else currentIndex = currentIndex + 1
+        sfxRotary.play()
+    }
+
+    function goToPrevious() {
+        if (currentIndex - 1 < 0) currentIndex = model.length - 1
+        else currentIndex = currentIndex - 1
         sfxRotary.play()
     }
 
@@ -33,6 +41,7 @@ ListView {
     highlightResizeDuration: 0
 
     delegate: Text {
+        required property string modelData
         text: modelData
         color: "white"
         font.family: "Roboto Condensed"
@@ -46,7 +55,7 @@ ListView {
     SoundEffect {
         id: sfxRotary
         source: "/assets/sounds/horizontal_tab.wav"
-    } 
+    }
 
     // Debug selected item
     // highlight: Rectangle {
@@ -54,4 +63,22 @@ ListView {
     //     border.width: 2
     //     color: "black"
     // }
+
+    Connections {
+        target: App.hid
+        function onUserActivity(a) {
+            if (a.startsWith("SUB_TAB_")) {
+                switch (a) {
+                case "SUB_TAB_NEXT":
+                    list.goToNext()
+                    sfxRotary.play()
+                    break
+                case "SUB_TAB_PREVIOUS":
+                    list.goToPrevious()
+                    sfxRotary.play()
+                    break
+                }
+            }
+        }
+    }
 }
