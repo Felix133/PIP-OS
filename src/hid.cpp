@@ -10,7 +10,9 @@ bool HumanInterfaceDevice::eventFilter(QObject *object, QEvent *event)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 
         Qt::Key qtKey = Qt::Key(keyEvent->key());
-        if (keymap.contains(qtKey)) {
+
+        // If the key is something that's in our mappings and also is not a held key auto repeating because it's held down
+        if (keymap.contains(qtKey) && !keyEvent->isAutoRepeat()) {
             QString activity = keymap.value(qtKey);
 
             // Catch an app quit event and handle that here
