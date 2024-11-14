@@ -1,25 +1,31 @@
 import QtQuick 2.15
 import QtQuick.Controls
 import QtQuick.Layouts
-// import QtLocation
-// import QtPositioning
+import QtLocation
+import QtPositioning
+
+import PipOS
 
 Page {
     background: Rectangle { color: "black" }
 
-    // Plugin {
-    //     id: mapPlugin
-    //     name: "osm"
-    // }
-
-    // Map {
-    //     id: map
-    //     anchors.fill: parent
-    //     plugin: mapPlugin
-    //     center: QtPositioning.coordinate(59.91, 10.75) // Oslo
-    //     zoomLevel: 14
-    //     color: "black"
-    // }
+    MapView {
+        id: view
+        anchors.fill: parent
+        anchors.margins: 4
+        map.plugin: Plugin {
+            name: "osm"
+            PluginParameter {
+                name: "osm.mapping.custom.host";
+                value: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/%z/%x/%y.png?api_key=" + App.settings.mapApiKey
+            }
+        }
+        map.onSupportedMapTypesChanged: {
+            map.activeMapType = map.supportedMapTypes[map.supportedMapTypes.length - 1]
+        }
+        map.zoomLevel: 15
+        map.center: QtPositioning.coordinate(42.463744, -71.359555) // Oslo
+    }
 
     footer: Rectangle {
         height: 40

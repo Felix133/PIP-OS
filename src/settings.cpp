@@ -79,4 +79,9 @@ void Settings::setYOffset(int newOffset)
     emit yOffsetChanged();
 }
 
+QString Settings::mapApiKey() const
+{
+    return m_settings.value("Map/apiKey").toString();
+}
+
 } // namespace PipOS

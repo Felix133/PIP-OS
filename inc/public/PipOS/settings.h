@@ -24,6 +24,8 @@ class Settings : public QObject {
     Q_PROPERTY(int xOffset READ xOffset WRITE setXOffset NOTIFY xOffsetChanged FINAL)
     Q_PROPERTY(int yOffset READ yOffset WRITE setYOffset NOTIFY yOffsetChanged FINAL)
 
+    Q_PROPERTY(QString mapApiKey READ mapApiKey CONSTANT FINAL)
+
 public:
     explicit Settings(QObject *parent = nullptr);
 
@@ -35,6 +37,7 @@ public:
     float scale() const;
     int xOffset() const;
     int yOffset() const;
+    QString mapApiKey() const;
 
 signals:
     void interfaceColorChanged();
