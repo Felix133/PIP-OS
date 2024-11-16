@@ -57,5 +57,12 @@ public slots:
 
 private:
     QSettings m_settings;
+    const QMap<QString, QVariant> defaultSettings;
+
+    void initializeDefaults();
+    QStringList getAllKeys(QSettings &settings);
+
+    // Helper method to create the default settings map
+    static QMap<QString, QVariant> createDefaultSettings();
 };
 }
