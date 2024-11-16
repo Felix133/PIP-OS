@@ -24,8 +24,17 @@ Rectangle {
         JSONListModel{
             id: inventory
             source: App.settings.inventoryFileLocation
-            sortFunction: function(a, b){
-                return a.text.localeCompare(b.text);
+            sortFunction: (a, b) => {
+              // First, sort by enabled and active status
+              const aStatus = (a.enabled && a.active) ? 2 : (a.enabled ? 1 : 0);
+              const bStatus = (b.enabled && b.active) ? 2 : (b.enabled ? 1 : 0);
+
+              if (aStatus !== bStatus) {
+                return bStatus - aStatus; // Higher status numbers come first
+              }
+
+              // If status is the same, sort alphabetically by text
+              return a.text.localeCompare(b.text);
             }
             query: ""
         }
@@ -42,38 +51,38 @@ Rectangle {
 
                 width: ListView.view.width
 
-                // visible: (inventoryItem.filterFlag === 1024)
-
-                Rectangle {
-                    color: item.ListView.isCurrentItem ? "black" : "white"
-                    opacity: item.modelData.equipState
-                    Layout.preferredWidth: 12
-                    Layout.preferredHeight: 12
+                Item {
+                    Layout.preferredWidth: 14
+                    Layout.preferredHeight: item.height
+                    Text {
+                        color: item.ListView.isCurrentItem ? "black" : "white"
+                        text:  item.modelData.active ? "": ""
+                    }
                 }
 
+                // Item text
                 Text {
                     color: item.ListView.isCurrentItem ? "black" : "white"
-                    text: (item.modelData.count === 1) ? item.modelData.text : "%1 (%2)".arg(item.modelData.text).arg(item.modelData.count)
-                    font.family: "Roboto Condensed"
-                    font.pixelSize: 26
+                    // item.modelData.enabled
+                    text:  item.modelData.text
+                    font.strikeout: !item.modelData.enabled
                 }
 
+                // Atom store icon from the modified font
                 Text {
                     visible: (item.modelData.isAtom || false)
                     color: item.ListView.isCurrentItem ? "black" : "white"
                     text: "¢"
-                    font.family: "Roboto Condensed"
-                    font.pixelSize: 26
                 }
 
+                // Legendary item icon from the modified font
                 Text {
                     visible: (item.modelData.isLegendary || false)
                     color: item.ListView.isCurrentItem ? "black" : "white"
                     text: "¬"
-                    font.family: "Roboto Condensed"
-                    font.pixelSize: 26
                 }
 
+                // Fill all remaining space in the RowLayout
                 Rectangle { Layout.fillWidth: true }
             }
             highlight: Rectangle { color: "white" }
@@ -86,7 +95,7 @@ Rectangle {
     }
 
     Rectangle {
-        color: "#333"
+        color: "#000"
         anchors {
             top: root.top
             topMargin: 46
@@ -100,15 +109,33 @@ Rectangle {
 
         ListView {
             anchors.fill: parent
-            model: list.currentItem.modelData.itemCardInfoList
-            delegate: RowLayout {
-                Text{
-                    color: "white"
-                    text: model.text || ''
-                }
-                Text{
-                    color: "white"
-                    text: model.Value || ''
+            model: list.currentItem.modelData.objectives
+            delegate: Rectangle {
+                id: objective
+                color: "#333"
+                width: parent.width
+                height: questText.height
+
+                RowLayout {
+                    Item {
+                        Layout.preferredWidth: 14
+                        Layout.preferredHeight: objective.height+2
+                        Text {
+                            color:  "white"
+                            text:  model.enabled ? "": ""
+                        }
+                    }
+
+                    Text {
+                        anchors.right: objective.right
+                        id: questText
+                        width: parent.width
+                        color: "white"
+                        text: model.text || ''
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: 26
+                        font.strikeout: model.completed
+                    }
                 }
             }
         }
@@ -116,59 +143,11 @@ Rectangle {
 
     states: [
         State{
-            name: "WEAPONS"
+            name: "MAIN"
             PropertyChanges {
                 target: inventory
-                query: "Inventory[**][*filterFlag=2]"
-            }
-        },
-        State{
-            name: "APPAREL"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=4]"
-            }
-        },
-        State{
-            name: "AID"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=8]"
-            }
-        },
-        State{
-            name: "MISC"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=512]"
-            }
-        },
-        State{
-            name: "HOLO"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=8192]"
-            }
-        },
-        State{
-            name: "NOTES"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=128]"
-            }
-        },
-        State{
-            name: "JUNK"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=1024]"
-            }
-        },
-        State{
-            name: "AMMO"
-            PropertyChanges {
-                target: inventory
-                query: "Inventory[**][*filterFlag=4096]"
+                // query: "Quests[*enabled=true]"
+                query: "Quests"
             }
         }
     ]

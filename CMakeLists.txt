@@ -45,6 +45,7 @@ set(QML
     qml/Tabs/TabEffects.qml
     qml/Tabs/TabInventory.qml
     qml/Tabs/TabRadio.qml
+    qml/Tabs/TabQuests.qml
     qml/Tabs/TabSpecial.qml
     qml/Tabs/FrequencyGraph.qml
     qml/JSONListModel/JSONListModel.qml

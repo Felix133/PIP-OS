@@ -6,6 +6,8 @@ import "../Layout"
 import "../Tabs"
 
 C.Page {
+    id: root
+
     property alias subMenuIndex: subMenu.currentIndex
     property int subMenuCenter
     property variant tabNames: ["WEAPONS", "APPAREL", "AID", "MISC", "HOLO", "NOTES", "JUNK", "AMMO"]
@@ -14,13 +16,13 @@ C.Page {
 
     header: SubMenu {
         id: subMenu
-        model: tabNames
-        centerPoint: subMenuCenter
+        model: root.tabNames
+        centerPoint: root.subMenuCenter
     }
 
     TabInventory {
         id: inventory
-        state: tabNames[subMenu.currentIndex]
+        state: root.tabNames[subMenu.currentIndex]
         anchors.fill: parent
     }
 
@@ -36,7 +38,7 @@ C.Page {
 
             Rectangle {
                 Layout.preferredWidth: 180
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
 
                 Text {
@@ -53,7 +55,7 @@ C.Page {
 
             Rectangle {
                 Layout.preferredWidth: 180
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
 
                 Text {
@@ -70,7 +72,7 @@ C.Page {
 
             Rectangle {
                 Layout.fillWidth: true
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
 
                 Text {

@@ -3,17 +3,27 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import PipOS 1.0
 import "../Layout"
+import "../Tabs"
 
 Page {
+    id: root
+
     property alias subMenuIndex: subMenu.currentIndex
     property int subMenuCenter
+    property variant tabNames: ["MAIN", "SIDE", "DAILY", "EVENT"]
 
     background: Rectangle { color: "black" }
 
     header: SubMenu {
         id: subMenu
-        model: ["MAIN", "SIDE", "DAILY", "EVENT"]
-        centerPoint: subMenuCenter
+        model: root.tabNames
+        centerPoint: root.subMenuCenter
+    }
+
+    TabQuests {
+        id: quests
+        state: root.tabNames[subMenu.currentIndex]
+        anchors.fill: parent
     }
 
     footer: Rectangle {
@@ -28,7 +38,7 @@ Page {
 
             Rectangle {
                 Layout.preferredWidth: 180
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
 
                 Text {
@@ -54,7 +64,7 @@ Page {
 
             Rectangle {
                 Layout.preferredWidth: 180
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
 
                 Text {
@@ -80,7 +90,7 @@ Page {
 
             Rectangle {
                 Layout.fillWidth: true
-                height: parent.height
+                Layout.preferredHeight: parent.height
                 color: "#333"
             }
         }

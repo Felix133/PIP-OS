@@ -12,6 +12,7 @@ Item {
     property string json: ""
     property string query: ""
     property string sortKey: ""
+    property var sortFunction
 
     property ListModel model : ListModel { id: jsonModel }
     property alias count: jsonModel.count
@@ -38,10 +39,8 @@ Item {
         var objectArray = parseJSONString(json, query);
 
         // Optionally sort based on object key
-        if (sortKey !== "") {
-            objectArray.sort(function(a, b){
-                return a[sortKey].localeCompare(b[sortKey]);
-            })
+        if (sortFunction) {
+            objectArray.sort(sortFunction)
         }
 
         for ( var key in objectArray ) {
