@@ -34,6 +34,7 @@ void App::init() {
     QFontDatabase::addApplicationFont(font);
   }
 
+  // List all contents of QRC
   // QDirIterator its(":", QDirIterator::Subdirectories);
   // while (its.hasNext()) {
   //     qDebug() << its.next();
@@ -51,6 +52,10 @@ void App::init() {
 
   auto *guiAppInst =
       dynamic_cast<QGuiApplication *>(QGuiApplication::instance());
+
+  // Set a default app wide font
+  QFont defaultFont = QFont("Roboto Condensed", 20);
+  guiAppInst->setFont(defaultFont);
 
   qmlRegisterSingletonInstance("PipOS", 1, 0, "App", this);
   m_mainWindowEngine->addImportPath(guiAppInst->applicationDirPath() + "/qml");
