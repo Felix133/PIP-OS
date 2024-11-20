@@ -131,15 +131,6 @@ If you want to write your own JSON, a minimal example could be as follows:
 }
 ```
 
-### Map
-
-The map is implemented using the Stadia Maps tile server for OpenStreetMap, you'll need an API key to use it but it should be free usage once you've made an account. Create an account over at https://stadiamaps.com and in your account create a new "property" and then generate an API key for it. Once you've got an API key add it to your app settings ini like below.
-
-```ini
-[Map]
-apyKey="<your API key>"
-```
-
 #### Filter Flags
 
 The inventory `filterFlag` field is a 32bit bitwise type field and is used to group items into various categories. The max int for this field would be `4294967295` which implies _all_ items. If an item is for example both a weapon and is also favourited, then you would add the `2` for weapon and `1` for favourite, so the `filterFlag` would be `3`.
@@ -174,6 +165,33 @@ Radio stations should be `.wav` files that are placed into a directory together.
 ```ini
 [Radio]
 directory = "file:///path/to/radio"
+```
+
+### Map
+
+The map is implemented using the Stadia Maps tile server for Open Street Map, you'll need an API key to use it but it should be free usage once you've made an account. Create an account over at https://stadiamaps.com and in your account create a new "property" and then generate an API key for it. Once you've got an API key add it to your app settings ini like below.
+
+```ini
+[Map]
+apiKey="<your API key>"
+```
+
+#### Location
+
+The app will try to locate a GPS device by default but you can point it which device to use in the ini as follows, for hints on valid values check the Qt docs here https://doc.qt.io/qt-6/position-plugin-nmea.html:
+
+```ini
+[Map]
+positionSource=serial:/dev/ttyUSB0
+```
+
+#### Using a fake location
+
+If you don't have a valid GPS source, you can also use static data, go to https://nmeagen.org and add a point to the map with "Add point" and then click "Generate NMEA file", save this file somewhere on disk such as `/path/to/location_data.txt` and then set the source in the ini as follows:
+
+```ini
+[Map]
+positionSource=file://path/to/location_data.txt
 ```
 
 ## Extracting Vault Boy Sprites

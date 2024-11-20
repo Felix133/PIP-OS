@@ -20,8 +20,6 @@ Page {
         name: "nmea"
         PluginParameter { name: "nmea.source"; value: settings.mapPositionSource }
 
-        // TODO: If no source is defined maybe we can just use a static location file
-
         updateInterval: 1000
         active: true
         onPositionChanged: {
@@ -73,7 +71,7 @@ Page {
         model: geocodeModel
         delegate: pointDelegate
     }
-
+    
     // TODO: Add optional config items for other icons, so you can add a home icon for example
 
     Component {
