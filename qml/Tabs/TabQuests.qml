@@ -26,17 +26,17 @@ Rectangle {
             data: dataProvider.data
             query: ""
             sortFunction: (a, b) => {
-              // First, sort by enabled and active status
-              const aStatus = (a.enabled && a.active) ? 2 : (a.enabled ? 1 : 0);
-              const bStatus = (b.enabled && b.active) ? 2 : (b.enabled ? 1 : 0);
+                              // First, sort by enabled and active status
+                              const aStatus = (a.enabled && a.active) ? 2 : (a.enabled ? 1 : 0);
+                              const bStatus = (b.enabled && b.active) ? 2 : (b.enabled ? 1 : 0);
 
-              if (aStatus !== bStatus) {
-                return bStatus - aStatus; // Higher status numbers come first
-              }
+                              if (aStatus !== bStatus) {
+                                  return bStatus - aStatus; // Higher status numbers come first
+                              }
 
-              // If status is the same, sort alphabetically by text
-              return a.text.localeCompare(b.text);
-            }
+                              // If status is the same, sort alphabetically by text
+                              return a.text.localeCompare(b.text);
+                          }
         }
 
         ListView {
@@ -94,49 +94,64 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        color: "#000"
+    AnimatedImage {
+        id: questImage
         anchors {
             top: root.top
-            topMargin: 46
+            topMargin: 16
             left: listMain.right
             leftMargin: 20
             right: root.right
             rightMargin: 20
-            bottom: root.bottom
-            bottomMargin: 60
+        }
+        source: "/assets/images/quest_default.gif"
+        fillMode: Image.PreserveAspectFit
+        Layout.preferredHeight: 200
+    }
+
+
+    ColumnLayout {
+        anchors {
+            left: questImage.left
+            right: questImage.right
+            top: questImage.bottom
+            topMargin: 20
+            // bottom: root.bottom
+            // bottomMargin: 60
         }
 
-        ListView {
-            anchors.fill: parent
+        spacing: 4
+
+        Repeater {
             model: list.currentItem ? list.currentItem.modelData.objectives : []
             delegate: Rectangle {
                 id: objective
                 color: "#333"
-                width: parent.width
-                height: questText.height
+                Layout.fillWidth: true
+                Layout.preferredHeight: questText.paintedHeight
 
-                RowLayout {
-                    Item {
-                        Layout.preferredWidth: 14
-                        Layout.preferredHeight: objective.height+2
-                        Text {
-                            color:  "white"
-                            text:  model.enabled ? "": ""
-                        }
-                    }
+                // Item {
+                //     Layout.preferredWidth: 14
+                //     Layout.preferredHeight: objective.height+2
+                //     Text {
+                //         color:  "white"
+                //         text:  model.enabled ? "": ""
+                //     }
+                // }
 
-                    Text {
-                        // anchors.right: parent.right
-                        // Layout.alignment:
-                        id: questText
-                        Layout.preferredWidth: parent.width
-                        color: "white"
-                        text: model.text || ''
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: 26
-                        font.strikeout: model.completed
-                    }
+                Text {
+                    id: questText
+                    anchors.top: parent.top
+                    anchors.topMargin: -4
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.rightMargin: 20
+
+                    color: "white"
+                    text: model.text || ''
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 26
+                    font.strikeout: model.completed
                 }
             }
         }

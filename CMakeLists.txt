@@ -121,6 +121,7 @@ qt_add_resources(PipOSApp "images"
         assets/images/initiating.gif
         assets/images/radio_axis.svg
         assets/images/map_marker.svg
+        assets/images/quest_default.gif
         assets/images/Strength.gif
         assets/images/Perception.gif
         assets/images/Endurance.gif
