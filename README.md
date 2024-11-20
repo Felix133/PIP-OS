@@ -191,7 +191,7 @@ If you don't have a valid GPS source, you can also use static data, go to https:
 
 ```ini
 [Map]
-positionSource=file://path/to/location_data.txt
+positionSource=file:///path/to/location_data.txt
 ```
 
 ## Extracting Vault Boy Sprites
