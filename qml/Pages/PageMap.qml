@@ -31,18 +31,13 @@ Page {
     }
 
     SatelliteSource {
+        id: satSource
+
         name: "nmea"
         PluginParameter { name: "nmea.source"; value: settings.mapPositionSource }
 
         active: true
         updateInterval: 1000
-
-        onSatellitesInUseChanged: {
-            console.log("GPS: satellites in use:", satellitesInUse.length)
-        }
-        onSatellitesInViewChanged: {
-            console.log("GPS: satellites in view:", satellitesInView.length)
-        }
     }
 
     MapView {
@@ -108,17 +103,17 @@ Page {
         }
     }
 
-    // Grey out the screen if there's no signal
+    // Grey out the screen if there's no signal, GPS requires at least 4 sats
     Rectangle {
-        visible: !posSource.valid
+        visible: !posSource.valid || satSource.satellitesInUse.length < 4
         anchors.fill: parent
         color: "black"
         opacity: 0.8
     }
 
-    // Display "No Signal" text if there is no signal
+    // Display "No Signal" text if there is no signal, GPS requires at least 4 sats
     Text {
-        visible: !posSource.valid
+        visible: !posSource.valid || satSource.satellitesInUse.length < 4
         anchors.fill: parent
         text: "No Signal..."
         font.pixelSize: 42
