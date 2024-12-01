@@ -7,6 +7,7 @@
 #include "PipOS/dataprovider.h"
 #include "PipOS/dweller.h"
 #include "PipOS/hid.h"
+#include "PipOS/holotape.h"
 #include "PipOS/radio.h"
 #include "PipOS/settings.h"
 
@@ -19,7 +20,7 @@ class App : public QObject {
   Q_PROPERTY(Dweller *dweller READ dweller CONSTANT)
   Q_PROPERTY(Radio *radio READ radio CONSTANT)
 
-public:
+  public:
   explicit App(QObject *parent = nullptr) : QObject(parent) {
       m_mainWindowEngine = new QQmlApplicationEngine(parent);
       m_hid = new HumanInterfaceDevice(this);
@@ -27,9 +28,11 @@ public:
       m_settings = new Settings(this);
       m_dweller = new Dweller(this);
       m_radio = new Radio(this);
+      m_holotape = new HolotapeProvider(this);
   }
 
   void init();
+  Q_INVOKABLE void loadQml();
 
   // Getters
   QQmlApplicationEngine mainWindowEngine() const { return m_mainWindowEngine; }
@@ -46,5 +49,6 @@ public:
   Settings *m_settings = nullptr;
   Dweller *m_dweller = nullptr;
   Radio *m_radio = nullptr;
+  HolotapeProvider *m_holotape = nullptr;
 };
 } // namespace PipOS

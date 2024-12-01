@@ -31,4 +31,12 @@ Window {
             }
         ]
     }
+
+    Shortcut {
+        sequence: "Ctrl+R"
+        onActivated: {
+            root.close()
+            app.loadQml()
+        }
+    }
 }

@@ -78,6 +78,14 @@ Item {
                 target: page
                 source: "qrc:/qml/PipOSApp/qml/Layout/MainLayout.qml"
             }
+        },
+
+        State {
+          name: "holotape:AtomicCommand"
+          PropertyChanges {
+              target: page
+              source: "qrc:/qml/PipOSApp/qml/Programs/AtomicCommand.qml"
+          }
         }
     ]
 
@@ -85,5 +93,11 @@ Item {
     Connections {
         target: page.item
         function onComplete() { root.state = "booted" }
+    }
+
+    // When a holotape is loaded we can change the main state to that, for games and such
+    Connections {
+        target: holotape
+        function onHolotapeLoaded(tape) { root.state = "holotape:"+tape }
     }
 }

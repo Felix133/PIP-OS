@@ -18,6 +18,7 @@ set(SOURCES
     src/dweller.cpp
     src/settings.cpp
     src/radio.cpp
+    src/holotape.cpp
 )
 
 set(HEADER
@@ -28,6 +29,7 @@ set(HEADER
     inc/public/PipOS/settings.h
     inc/public/PipOS/dweller.h
     inc/public/PipOS/radio.h
+    inc/public/PipOS/holotape.h
 )
 
 set(QML
@@ -56,6 +58,7 @@ set(QML
     qml/Tabs/FrequencyGraph.qml
     qml/JSONListModel/JSONListModel.qml
     qml/JSONListModel/json-query.js
+    qml/Programs/AtomicCommand.qml
 )
 
 # Set QML import path for Qt Creator
@@ -129,6 +132,7 @@ qt_add_resources(PipOSApp "images"
         assets/images/Intelligence.gif
         assets/images/Agility.gif
         assets/images/Luck.gif
+        assets/images/AtomicCommandStart.gif
 )
 
 qt_add_resources(PipOSApp "sounds"

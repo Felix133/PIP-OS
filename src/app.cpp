@@ -13,61 +13,70 @@
 
 namespace PipOS {
 
-void App::init() {
-  qInfo() << "Init PipOS";
+void App::init()
+{
+    qInfo() << "Init PipOS";
 
-  qRegisterMetaType<CollectionItem *>("CollectionItem*");
+    qRegisterMetaType<CollectionItem *>("CollectionItem*");
 
-  QDirIterator it(":", {"*.ttf", "*.otf"}, QDir::Files, QDirIterator::Subdirectories);
-  while (it.hasNext()) {
-    QString font = it.next();
-    qDebug() << "Loading font" << font;
-    QFontDatabase::addApplicationFont(font);
-  }
+    QDirIterator it(":", {"*.ttf", "*.otf"}, QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        QString font = it.next();
+        qDebug() << "Loading font" << font;
+        QFontDatabase::addApplicationFont(font);
+    }
 
-  // Load the JSON data file
-  m_dataProvider->loadData(m_settings->inventoryFileLocation());
+    // Load the JSON data file
+    m_dataProvider->loadData(m_settings->inventoryFileLocation());
 
-  QQmlContext *context = m_mainWindowEngine->rootContext();
+    QQmlContext *context = m_mainWindowEngine->rootContext();
 
-  context->setContextProperty("hid", m_hid);
-  context->setContextProperty("dataProvider", m_dataProvider);
-  context->setContextProperty("settings", m_settings);
-  context->setContextProperty("dweller", m_dweller);
-  context->setContextProperty("radio", m_radio);
+    context->setContextProperty("app", this);
 
-  // auto *context = static_cast<QQmlEngine *>(m_mainWindowEngine)->rootContext();
-  // context->setContextProperty("app", this);
+    context->setContextProperty("hid", m_hid);
+    context->setContextProperty("dataProvider", m_dataProvider);
+    context->setContextProperty("settings", m_settings);
+    context->setContextProperty("dweller", m_dweller);
+    context->setContextProperty("radio", m_radio);
+    context->setContextProperty("holotape", m_holotape);
 
-  // List all contents of QRC
-  // QDirIterator its(":", QDirIterator::Subdirectories);
-  // while (its.hasNext()) {
-  //     qDebug() << its.next();
-  // }
+    // auto *context = static_cast<QQmlEngine *>(m_mainWindowEngine)->rootContext();
+    // context->setContextProperty("app", this);
 
-  // qmlRegisterSingletonInstance("PipOS", 1, 0, "App", this);
-  qmlRegisterType<BootScreen>("BootScreen", 1, 0, "BootScreen");
+    // List all contents of QRC
+    // QDirIterator its(":", QDirIterator::Subdirectories);
+    // while (its.hasNext()) {
+    //     qDebug() << its.next();
+    // }
 
-  auto *guiAppInst = dynamic_cast<QGuiApplication *>(QGuiApplication::instance());
+    // qmlRegisterSingletonInstance("PipOS", 1, 0, "App", this);
+    qmlRegisterType<BootScreen>("BootScreen", 1, 0, "BootScreen");
 
-  // Set a default app wide font
-  QFont defaultFont = QFont("Roboto Condensed", 20);
-  guiAppInst->setFont(defaultFont);
+    auto *guiAppInst = dynamic_cast<QGuiApplication *>(QGuiApplication::instance());
 
-  // Where's all the QML
-  m_mainWindowEngine->addImportPath(guiAppInst->applicationDirPath() + "/qml");
-  guiAppInst->addLibraryPath(guiAppInst->applicationDirPath() + "/qml");
+    // Set a default app wide font
+    QFont defaultFont = QFont("Roboto Condensed", 20);
+    guiAppInst->setFont(defaultFont);
 
-  // Human interface device filter for capturing user events
-  guiAppInst->installEventFilter(m_hid);
+    // Where's all the QML
+    m_mainWindowEngine->addImportPath(guiAppInst->applicationDirPath() + "/qml");
+    guiAppInst->addLibraryPath(guiAppInst->applicationDirPath() + "/qml");
 
-  // Load the main QML entrypoint
-  qInfo() << "Loading main.qml";
-  m_mainWindowEngine->load(QUrl(QStringLiteral("qrc:/qml/PipOSApp/main.qml")));
+    // Human interface device filter for capturing user events
+    guiAppInst->installEventFilter(m_hid);
 
-  if (m_mainWindowEngine->rootObjects().isEmpty()) {
-      qFatal("Failed to load main.qml");
-  }
+    // Load the main QML entrypoint
+    qInfo() << "Loading main.qml";
+    m_mainWindowEngine->load(QUrl(QStringLiteral("qrc:/qml/PipOSApp/main.qml")));
+
+    if (m_mainWindowEngine->rootObjects().isEmpty()) {
+        qFatal("Failed to load main.qml");
+    }
+}
+
+void App::loadQml()
+{
+    m_mainWindowEngine->load(QUrl(QStringLiteral("qrc:/qml/PipOSApp/main.qml")));
 }
 
 } // namespace PipOS
