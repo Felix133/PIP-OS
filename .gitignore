@@ -82,3 +82,5 @@ build/
 # dpkg build tree
 *.deb
 drivers/hid/uinput/pipboy-hid/
+
+assets/images/reference/
