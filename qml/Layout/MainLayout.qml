@@ -33,6 +33,7 @@ Item {
                     subMenuCenter: mainNav.activeTab ? mainNav.activeTab.x + mainNav.activeTab.width + 8 : 0
                 })
             }
+            tabs: settings.hideMapTab ? ["STAT", "ITEM", "DATA",  "RADIO"] : ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
         }
 
         Loader {

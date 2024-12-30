@@ -5,15 +5,15 @@ Rectangle {
     id: root
 
     property int activeTabIndex: 0
-    property list<string> allTabs: ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
+    property list<string> tabs: ["STAT", "ITEM", "DATA", "MAP", "RADIO"]
     property MainNavigationTab activeTab
 
     color: "#000000000"
     height: 32
 
     function findItemPosition(itemToFind) {
-        for (var i = 0; i < allTabs.length; ++i) {
-            if (allTabs[i] === itemToFind) { return i; }
+        for (var i = 0; i < tabs.length; ++i) {
+            if (tabs[i] === itemToFind) { return i; }
         }
         return -1; // Item not found
     }
@@ -46,8 +46,8 @@ Rectangle {
 
         Repeater {
             id: repeater
-            state: root.allTabs[root.activeTabIndex]
-            model: root.allTabs
+            state: root.tabs[root.activeTabIndex]
+            model: root.tabs
 
             MainNavigationTab {
                 required property string modelData

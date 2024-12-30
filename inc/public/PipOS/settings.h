@@ -17,6 +17,7 @@ class Settings : public QObject {
                    interfaceColorChanged FINAL)
     Q_PROPERTY(bool skipBoot READ skipBoot WRITE setSkipBoot NOTIFY skipBootChanged FINAL)
     Q_PROPERTY(bool scanLines READ scanLines WRITE setScanLines NOTIFY scanLinesChanged FINAL)
+    Q_PROPERTY(bool hideMapTab READ hideMapTab WRITE setHideMapTab NOTIFY hideMapTabChanged FINAL)
     Q_PROPERTY(QString radioStationLocation READ radioStationLocation CONSTANT FINAL)
     Q_PROPERTY(QString inventoryFileLocation READ inventoryFileLocation CONSTANT FINAL)
 
@@ -31,6 +32,7 @@ public:
     explicit Settings(QObject *parent = nullptr);
 
     QString interfaceColor() const;
+    bool hideMapTab() const;
     bool skipBoot() const;
     bool scanLines() const;
     QString radioStationLocation() const;
@@ -48,9 +50,11 @@ signals:
     void scaleChanged();
     void xOffsetChanged();
     void yOffsetChanged();
+    void hideMapTabChanged();
 
 public slots:
     void setInterfaceColor(const QString &newInterfaceColor);
+    void setHideMapTab(bool newHideMapTab);
     void setSkipBoot(bool newSkipBoot);
     void setScanLines(bool newScanLines);
     void setScale(float newScale);

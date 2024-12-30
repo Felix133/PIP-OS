@@ -16,6 +16,7 @@ QMap<QString, QVariant> Settings::createDefaultSettings() {
         {"Interface/yOffset", 0},
         {"Interface/skipBoot", false},
         {"Interface/scanlines", true},
+        {"Interface/hideMapTab", false},
         {"Radio/directory", QDir::currentPath()},
         {"Inventory/directory", QDir::currentPath()},
         {"Map/apiKey", ""},
@@ -125,6 +126,17 @@ QString Settings::mapApiKey() const {
 QString Settings::mapPositionSource() const
 {
     return m_settings.value("Map/positionSource").toString();
+}
+
+bool Settings::hideMapTab() const
+{
+    return m_settings.value("Interface/hideMapTab").toBool();
+}
+
+void Settings::setHideMapTab(bool newHideMapTab)
+{
+    m_settings.setValue("Interface/hideMapTab", newHideMapTab);
+    emit hideMapTabChanged();
 }
 
 } // namespace PipOS
