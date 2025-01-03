@@ -10,6 +10,7 @@ Page {
     id: root
 
     property int subMenuCenter
+    property bool hasPosition: false
 
     background: Rectangle {
         color: "black"
@@ -30,6 +31,8 @@ Page {
         updateInterval: 1000
 
         onPositionChanged: {
+            root.hasPosition = true
+
             // send the geocode request
             geocodeModel.query = position.coordinate
             geocodeModel.update()
@@ -111,20 +114,19 @@ Page {
         }
     }
 
-    // Grey out the screen if there's no signal, GPS requires at least 4 sats
-    // TODO: If using false data, there will be no sats in use either
+    // Grey out the screen if there's no signal
     Rectangle {
-        visible: !posSource.valid || satSource.satellitesInUse.length < 4
+        visible: !root.hasPosition
         anchors.fill: parent
         color: "black"
         opacity: 0.8
     }
 
-    // Display "No Signal" text if there is no signal, GPS requires at least 4 sats
+    // Display "No Location Data" text if there is no signal
     Text {
-        visible: !posSource.valid || satSource.satellitesInUse.length < 4
+        visible: !root.hasPosition
         anchors.fill: parent
-        text: "No Signal..."
+        text: "No Location Data..."
         font.pixelSize: 42
         ColorAnimation on color {
             loops: Animation.Infinite
