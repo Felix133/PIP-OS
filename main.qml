@@ -29,4 +29,11 @@ Window {
             }
         ]
     }
+
+    Shortcut {
+        sequence: Settings.getKeySequence(Events.APP_QUIT)
+        onActivated: {
+            Qt.quit()
+        }
+    }
 }
