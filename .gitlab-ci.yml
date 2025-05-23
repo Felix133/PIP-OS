@@ -26,17 +26,12 @@ build appimage:
         - "main.cpp"
         - "AppImageBuilder.yml"
         - "CMakeLists.txt"
-  variables:
-    LD_LIBRARY_PATH: /usr/lib/aarch64-linux-gnu # Needed to allow build to locate glibc
-    QT_PATH: /opt/Qt-arm64-6.9.0
+  # variables:
+  #   LD_LIBRARY_PATH: /usr/lib/aarch64-linux-gnu # Needed to allow build to locate glibc
   cache:
     paths: [build/]
-  before_script:
-    - mkdir -p build
-    - cd build
   script:
-    - source /venv/bin/activate
-    - appimage-builder --recipe ../AppImageBuilder.yml
+    - /src/hack/build.sh
   artifacts:
     paths:
       - build/${APPIMAGE_NAME}

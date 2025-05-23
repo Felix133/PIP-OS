@@ -1,21 +1,20 @@
 # appimage-builder recipe see https://appimage-builder.readthedocs.io for details
 version: 1
 script:
-  - rm -rf AppDir  | true
+  - rm -rf AppDir | true
   - mkdir -p AppDir/usr/share/icons
-
   - touch AppDir/usr/share/icons/icon.png
-  - ${QT_PATH}/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
+  - ${QT_HOST_PATH}bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
   - make install DESTDIR=AppDir
-  - mkdir -p AppDir${QT_PATH}/qml
-  - cp -r ${QT_PATH}/qml/Qt AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtCore AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtQml AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtQuick AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtMultimedia AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtLocation AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtPositioning AppDir${QT_PATH}/qml/
-  - cp -r ${QT_PATH}/qml/QtGraphs AppDir${QT_PATH}/qml/
+  - mkdir -p AppDir${QT_HOST_PATH}qml
+  - cp -r ${QT_HOST_PATH}qml/Qt AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtCore AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtQml AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtQuick AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtMultimedia AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtLocation AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtPositioning AppDir${QT_HOST_PATH}qml/
+  - cp -r ${QT_HOST_PATH}qml/QtGraphs AppDir${QT_HOST_PATH}qml/
 
 AppDir:
   path: ./AppDir
@@ -29,7 +28,7 @@ AppDir:
   runtime:
     env:
       QT_QPA_PLATFORM: eglfs
-      QML2_IMPORT_PATH: $APPDIR${QT_PATH}/qml
+      QML2_IMPORT_PATH: $APPDIR${QT_HOST_PATH}qml
       QML_XHR_ALLOW_FILE_READ: "1"
       QT_QPA_EGLFS_HIDECURSOR: "1"
   files:
@@ -40,50 +39,50 @@ AppDir:
       - /usr/lib/aarch64-linux-gnu/libicuuc.so.74
       - /usr/lib/aarch64-linux-gnu/libb2.so.1
       - /usr/lib/aarch64-linux-gnu/libicudata.so.74
-      - ${QT_PATH}/lib/libQt6Core.so.6
-      - ${QT_PATH}/lib/libQt6Gui.so.6
-      - ${QT_PATH}/lib/libQt6Qml.so.6
-      - ${QT_PATH}/lib/libQt6EglFSDeviceIntegration.so.6
-      - ${QT_PATH}/lib/libQt6EglFsKmsGbmSupport.so.6
-      - ${QT_PATH}/lib/libQt6EglFsKmsSupport.so.6
-      - ${QT_PATH}/lib/libQt6LabsFolderListModel.so.6
-      - ${QT_PATH}/lib/libQt6LabsSettings.so.6
-      - ${QT_PATH}/lib/libQt6Multimedia.so.6
-      - ${QT_PATH}/lib/libQt6MultimediaQuick.so.6
-      - ${QT_PATH}/lib/libQt6OpenGL.so.6
-      - ${QT_PATH}/lib/libQt6QmlCore.so.6
-      - ${QT_PATH}/lib/libQt6QmlLocalStorage.so.6
-      - ${QT_PATH}/lib/libQt6QmlModels.so.6
-      - ${QT_PATH}/lib/libQt6QmlWorkerScript.so.6
-      - ${QT_PATH}/lib/libQt6Quick.so.6
-      - ${QT_PATH}/lib/libQt6Graphs.so.6
-      - ${QT_PATH}/lib/libQt6QuickControls2.so.6
-      - ${QT_PATH}/lib/libQt6QuickEffects.so.6
-      - ${QT_PATH}/lib/libQt6QuickLayouts.so.6
-      - ${QT_PATH}/lib/libQt6ShaderTools.so.6
-      - ${QT_PATH}/lib/libQt6QuickControls2Basic.so.6
-      - ${QT_PATH}/lib/libQt6QuickControls2Impl.so.6
-      - ${QT_PATH}/lib/libQt6QuickControls2FusionStyleImpl.so.6
-      - ${QT_PATH}/lib/libQt6Svg.so.6
-      - ${QT_PATH}/lib/libQt6XcbQpa.so.6
-      - ${QT_PATH}/lib/libQt6QuickControls2Fusion.so.6
-      - ${QT_PATH}/lib/libQt6QuickShapes.so.6
-      - ${QT_PATH}/lib/libQt6PositioningQuick.so.6
-      - ${QT_PATH}/lib/libQt6Positioning.so.6
-      - ${QT_PATH}/lib/libQt6Location.so.6
-      - ${QT_PATH}/lib/libQt6LabsAnimation.so.6
-      - ${QT_PATH}/plugins/egldeviceintegrations/*.so
-      - ${QT_PATH}/plugins/xcbglintegrations/*.so
-      - ${QT_PATH}/plugins/imageformats/*.so
-      - ${QT_PATH}/plugins/multimedia/*.so
-      - ${QT_PATH}/plugins/platforms/*.so
-      - ${QT_PATH}/plugins/qmltooling/*.so
-      - ${QT_PATH}/plugins/generic/*.so
-      - ${QT_PATH}/plugins/platforminputcontexts/*.so
-      - ${QT_PATH}/plugins/platformthemes/*.so
-      - ${QT_PATH}/plugins/geoservices/*.so
-      - ${QT_PATH}/plugins/tls/*.so
-      - ${QT_PATH}/plugins/position/*.so
+      - ${QT_HOST_PATH}lib/libQt6Core.so.6
+      - ${QT_HOST_PATH}lib/libQt6Gui.so.6
+      - ${QT_HOST_PATH}lib/libQt6Qml.so.6
+      - ${QT_HOST_PATH}lib/libQt6EglFSDeviceIntegration.so.6
+      - ${QT_HOST_PATH}lib/libQt6EglFsKmsGbmSupport.so.6
+      - ${QT_HOST_PATH}lib/libQt6EglFsKmsSupport.so.6
+      - ${QT_HOST_PATH}lib/libQt6LabsFolderListModel.so.6
+      - ${QT_HOST_PATH}lib/libQt6LabsSettings.so.6
+      - ${QT_HOST_PATH}lib/libQt6Multimedia.so.6
+      - ${QT_HOST_PATH}lib/libQt6MultimediaQuick.so.6
+      - ${QT_HOST_PATH}lib/libQt6OpenGL.so.6
+      - ${QT_HOST_PATH}lib/libQt6QmlCore.so.6
+      - ${QT_HOST_PATH}lib/libQt6QmlLocalStorage.so.6
+      - ${QT_HOST_PATH}lib/libQt6QmlModels.so.6
+      - ${QT_HOST_PATH}lib/libQt6QmlWorkerScript.so.6
+      - ${QT_HOST_PATH}lib/libQt6Quick.so.6
+      - ${QT_HOST_PATH}lib/libQt6Graphs.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickControls2.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickEffects.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickLayouts.so.6
+      - ${QT_HOST_PATH}lib/libQt6ShaderTools.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickControls2Basic.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickControls2Impl.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickControls2FusionStyleImpl.so.6
+      - ${QT_HOST_PATH}lib/libQt6Svg.so.6
+      - ${QT_HOST_PATH}lib/libQt6XcbQpa.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickControls2Fusion.so.6
+      - ${QT_HOST_PATH}lib/libQt6QuickShapes.so.6
+      - ${QT_HOST_PATH}lib/libQt6PositioningQuick.so.6
+      - ${QT_HOST_PATH}lib/libQt6Positioning.so.6
+      - ${QT_HOST_PATH}lib/libQt6Location.so.6
+      - ${QT_HOST_PATH}lib/libQt6LabsAnimation.so.6
+      - ${QT_HOST_PATH}plugins/egldeviceintegrations/*.so
+      - ${QT_HOST_PATH}plugins/xcbglintegrations/*.so
+      - ${QT_HOST_PATH}plugins/imageformats/*.so
+      - ${QT_HOST_PATH}plugins/multimedia/*.so
+      - ${QT_HOST_PATH}plugins/platforms/*.so
+      - ${QT_HOST_PATH}plugins/qmltooling/*.so
+      - ${QT_HOST_PATH}plugins/generic/*.so
+      - ${QT_HOST_PATH}plugins/platforminputcontexts/*.so
+      - ${QT_HOST_PATH}plugins/platformthemes/*.so
+      - ${QT_HOST_PATH}plugins/geoservices/*.so
+      - ${QT_HOST_PATH}plugins/tls/*.so
+      - ${QT_HOST_PATH}plugins/position/*.so
 
     exclude:
       - lib/aarch64-linux-gnu/lib*.so*
@@ -93,6 +92,6 @@ AppDir:
       - usr/share/doc/*/TODO.*
 
 AppImage:
-  arch: aarch64
+  arch: aarch64 # TODO: This should be based on whatever image is running tbh
   comp: gzip
   update-information: guess
