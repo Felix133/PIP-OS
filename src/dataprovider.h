@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QObject>
 #include <QQmlEngine>
+#include <QtQmlIntegration/qqmlintegration.h>
 #include <jsoncons/json.hpp>
 
 namespace PipOS {
@@ -12,7 +13,7 @@ class DataProvider : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged FINAL)
-    // Q_PROPERTY( QAbstractItemModel data READ data NOTIFY dataChanged FINAL )
+    Q_PROPERTY( QVariant data READ data NOTIFY dataChanged FINAL )
     Q_PROPERTY(bool queryInProgress READ queryInProgress NOTIFY queryInProgressChanged FINAL)
     QML_ELEMENT
 
@@ -21,10 +22,10 @@ public:
 
     QString query() const { return m_query; };
     void setQuery( const QString& newQuery );
-    // QAbstractItemModel data() const
-    // {
-    //     return m_data;
-    // };
+    QVariant data() const
+    {
+        return m_data;
+    };
     bool queryInProgress() const { return m_queryInProgress; };
 
 signals:
@@ -33,7 +34,7 @@ signals:
     void queryInProgressChanged();
 
 private:
-    // QAbstractItemModel m_data;
+    QVariant m_data;
     QString m_query;
     bool m_queryInProgress;
 
