@@ -1,5 +1,4 @@
-# PIP-OS V7.1.0.8
-
+# PIP-OS
 ##### Copyright 2075 RobCo
 
 ## Basic Installation
