@@ -96,19 +96,10 @@ qt_policy(SET QTP0004 NEW)
 qt_add_qml_module(appPipOS
     URI PipOS
     VERSION 1.0
-    # OUTPUT_DIRECTORY ${PIPOS_QML_MODULES_PATH}
     RESOURCE_PREFIX /robco-industries.org
     QML_FILES ${QML}
     SOURCES ${SOURCES} ${HEADER}
 )
-
-# qt_add_qml_module(appPipOS
-#     URI JSONListModel
-#     VERSION 1.0
-#     QML_FILES
-#         qml/JSONListModel/JSONListModel.qml
-#         qml/JSONListModel/json-query.js
-#     )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -184,11 +175,3 @@ install(TARGETS appPipOS
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-
-# set(INSTALL_DESTDIR "/opt")
-
-# install(TARGETS appPipOS
-#     RUNTIME DESTINATION "${INSTALL_DESTDIR}"
-#     BUNDLE DESTINATION "${INSTALL_DESTDIR}"
-#     LIBRARY DESTINATION "${INSTALL_DESTDIR}"
-# )

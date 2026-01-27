@@ -1,0 +1,16 @@
+Source: pip-os
+Section: utils
+Priority: optional
+Maintainer: Darrian <darrian@robco-industries.org>
+Build-Depends: debhelper-compat (= 13), 
+               cmake, 
+               qt6-base-dev, 
+               dh-sequence-qmldeps,
+               qt6-base-dev-tools,
+               libqt6core6
+Standards-Version: 4.6.0
+
+Package: pip-os
+Architecture: arm64
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${qml6:Depends}
+Description: RobCo Industries PIP-OS

@@ -4,21 +4,25 @@
 
 ## Basic Installation
 
-### Pre-requisites
+### Requirements
 
-```
-sudo apt install libegl-dev libopengl-dev libxkbcommon-dev libharfbuzz-dev libmd4c-dev libpulse0 libfuse2
-```
+Tested and developed against Raspberry Pi OS 13 (trixie). Should work on any 64 bit Raspberry Pi running trixie or later.
 
-### Install
+### Installation
 
+Download the latest release deb file from [Releases](https://github.com/RobCo-Engineering/PIP-OS/releases) and install via apt, for example:
 ```sh
-wget https://gitlab.com/robco-industries/pip-os/-/package_files/166831732/download -O PIP-OS-v7.1.0.45-aarch64.AppImage
-chmod +x PIP-OS-v7.1.0.45-aarch64.AppImage
-./PIP-OS-v7.1.0.45-aarch64.AppImage
+sudo apt install ./pip-os_7.1.1_arm64.deb
 ```
 
-TODO: Add note about platforms, wayland etc.
+The app can be configured to run at startup or run as a one off:
+```sh
+# Enable at startup (optional)
+systemctl --user enable pip-os.service 
+
+# Start PIP-OS
+systemctl --user start pip-os.service
+```
 
 ## Configuration
 
@@ -190,15 +194,24 @@ If you don't have a valid GPS source, you can also use static data, go to https:
 positionSource=file:///path/to/location_data.txt
 ```
 
-## Debugging Startup Issues
-
 ## Building from source
 
-The most straightforward way to simply _build_ this code is using a Docker container that already has all of the Qt install inside it.
+To build from source on Debian 13, first install some of the pre-requisites:
+```sh
+sudo apt-get install git cmake g++ build-essential libgl1-mesa-dev qt6-base-dev qt6-base-dev-tools qt6-quick3d-dev qt6-positioning-dev qt6-location-dev  qt6-multimedia-dev qt6-graphs-dev qt6-declarative-private-dev
+```
 
-There are some helper scripts inside `hack/`, you _should_ be able to run `./hack/cross_compile.sh` to build an aarch64 AppImage.
+Then pull this repo and build as so:
+```sh
+git clone https://github.com/RobCo-Engineering/PIP-OS.git
+cd PIP-OS
+mkdir build
+cd build
+/usr/lib/qt6/bin/qt-cmake .. -DCMAKE_BUILD_TYPE=Release
+make
+```
 
-If you're running from a non ARM linux box, you need to first make sure you're running Docker with QEMU enabled as per https://docs.docker.com/build/building/multi-platform/#qemu
+Built app should be in `build/usr/bin/
 
 ## Extracting Vault Boy Sprites
 

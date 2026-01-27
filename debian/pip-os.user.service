@@ -1,0 +1,14 @@
+[Unit]
+Description=RobCo Industries PIP-OS
+After=network.target
+
+[Service]
+Type=simple
+Environment="QT_QPA_PLATFORM=eglfs"
+Environment="QT_QPA_EGLFS_HIDECURSOR=1"
+ExecStart=/usr/bin/appPipOS
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
