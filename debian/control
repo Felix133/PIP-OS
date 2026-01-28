@@ -12,5 +12,5 @@ Standards-Version: 4.6.0
 
 Package: pip-os
 Architecture: arm64
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${qml6:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${qml6:Depends}, qt6-svg-plugins
 Description: RobCo Industries PIP-OS
