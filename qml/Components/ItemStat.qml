@@ -39,7 +39,8 @@ Item {
 
                 Image {
                     source: parent.icon
-                    width: parent.width
+                    width: parent.width / 2
+                    height: parent.width / 2
                     anchors.top: parent.top
                     anchors.topMargin: 4
                     anchors.horizontalCenter: parent.horizontalCenter
