@@ -90,8 +90,25 @@ Item {
         autoRepeat: false
         onActivated: {
 
-            // list.goToNext()
-            // sfxRotary.play()
+            switch (page.currentIndex) {
+	    case 0: 
+		statPage.subMenuIndex = (statPage.subMenuIndex + 1) % statPage.pages.length 
+		break 
+	    case 1: 
+		itemPage.subMenuIndex = (itemPage.subMenuIndex + 1) % itemPage.pages.length 
+		break 
+	    case 2: 
+		dataPage.subMenuIndex = (dataPage.subMenuIndex + 1) % dataPage.pages.length 
+		break 
+	    case 3: 
+		if (!Settings.hideMapTab)
+		    // mapPage.subMenuIndex = (mapPage.subMenuIndex + 1) % mapPage.pages.length 
+		break 
+	    case 4: 
+		// radioPage.subMenuIndex = (radioPage.subMenuIndex + 1) % radioPage.pages.length 
+		break 
+	    }
+            sfxRotary.play()
         }
     }
 
@@ -101,8 +118,25 @@ Item {
         autoRepeat: false
         onActivated: {
 
-            // list.goToPrevious()
-            // sfxRotary.play()
+            switch (page.currentIndex) {
+	    case 0: 
+		statPage.subMenuIndex = (statPage.subMenuIndex - 1 + statPage.pages.length) % statPage.pages.length
+		break 
+	    case 1: 
+		itemPage.subMenuIndex = (itemPage.subMenuIndex - 1 + itemPage.pages.length) % itemPage.pages.length 
+		break 
+	    case 2: 
+		dataPage.subMenuIndex = (dataPage.subMenuIndex - 1 + dataPage.pages.length) % dataPage.pages.length 
+		break 
+	    case 3: 
+		if (!Settings.hideMapTab)
+		    // mapPage.subMenuIndex = (mapPage.subMenuIndex - 1 + mapPage.pages.length) % mapPage.pages.length 
+		break 
+	    case 4: 
+		// radioPage.subMenuIndex = (radioPage.subMenuIndex - 1 + radioPage.pages.length) % radioPage.pages.length 
+		break 
+	    }
+            sfxRotary.play()
         }
     }
 
