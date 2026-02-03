@@ -6,8 +6,8 @@ import PipOS
 
 Window {
     id: root
-    width: 720
-    height: 720
+    width: Settings.windowWidth || 720
+    height: Settings.windowHeight || 720
     visible: true
     title: qsTr("PIP-OS V7.1.0.8")
     color: "black"
@@ -47,8 +47,8 @@ Window {
                 visible: true
                 asynchronous: false
 
-                width: 720
-                height: 720
+                width: Settings.windowWidth || 720
+                height: Settings.windowHeight || 720
                 transform: [
                     Scale {
                         id: bootLoaderScale
@@ -97,8 +97,8 @@ Window {
                 active: false
                 asynchronous: true
 
-                width: 720
-                height: 720
+                width: Settings.windowWidth || 720
+                height: Settings.windowHeight || 720
                 transform: [
                     Scale {
                         id: appLoaderScale

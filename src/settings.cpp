@@ -14,6 +14,8 @@ QMap<QString, QVariant> Settings::createDefaultSettings() {
         { "Interface/scale", 1.0 },
         { "Interface/xOffset", 0 },
         { "Interface/yOffset", 0 },
+        { "Interface/width", 720 },
+        { "Interface/height", 720 },
         { "Interface/skipBoot", false },
         { "Interface/scanlines", true },
         { "Interface/hideMapTab", false },
@@ -117,6 +119,22 @@ int Settings::yOffset() const {
 void Settings::setYOffset(int newOffset) {
   m_settings.setValue("Interface/yOffset", newOffset);
   emit yOffsetChanged();
+}
+
+int Settings::windowWidth() const {
+    return m_settings.value("Interface/width").toInt();
+}
+void Settings::setWindowWidth(int newWidth) {
+    m_settings.setValue("Interface/width", newWidth);
+    emit windowWidthChanged();
+}
+
+int Settings::windowHeight() const {
+    return m_settings.value("Interface/height").toInt();
+}
+void Settings::setWindowHeight(int newHeight) {
+    m_settings.setValue("Interface/height", newHeight);
+    emit windowHeightChanged();
 }
 
 QString Settings::mapApiKey() const {

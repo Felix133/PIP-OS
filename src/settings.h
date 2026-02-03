@@ -31,6 +31,8 @@ class Settings : public QObject {
   Q_PROPERTY(float scale READ scale WRITE setScale NOTIFY scaleChanged FINAL)
   Q_PROPERTY(int xOffset READ xOffset WRITE setXOffset NOTIFY xOffsetChanged FINAL)
   Q_PROPERTY(int yOffset READ yOffset WRITE setYOffset NOTIFY yOffsetChanged FINAL)
+  Q_PROPERTY(int windowWidth READ windowWidth WRITE setWindowWidth NOTIFY windowWidthChanged FINAL)
+  Q_PROPERTY(int windowHeight READ windowHeight WRITE setWindowHeight NOTIFY windowHeightChanged FINAL)
 
   Q_PROPERTY(QString mapApiKey READ mapApiKey CONSTANT FINAL)
   Q_PROPERTY(QString mapPositionSource READ mapPositionSource CONSTANT FINAL)
@@ -47,6 +49,8 @@ public:
   float scale() const;
   int xOffset() const;
   int yOffset() const;
+  int windowWidth() const;
+  int windowHeight() const;
   QString mapApiKey() const;
   QString mapPositionSource() const;
 
@@ -59,6 +63,8 @@ public:
   void scaleChanged();
   void xOffsetChanged();
   void yOffsetChanged();
+  void windowWidthChanged();
+  void windowHeightChanged();
   void hideMapTabChanged();
 
 public slots:
@@ -69,6 +75,8 @@ public slots:
   void setScale(float newScale);
   void setXOffset(int newOffset);
   void setYOffset(int newOffset);
+  void setWindowWidth(int newWidth);
+  void setWindowHeight(int newHeight);
 
 private:
   QSettings m_settings;
