@@ -103,17 +103,7 @@ Item {
             itemStats: ListModel {
                 ListElement {
                     icon: "/images/status/damage.svg"
-                    value: 88
-                }
-
-                ListElement {
-                    icon: "/images/status/energy.svg"
-                    value: 88
-                }
-
-                ListElement {
-                    icon: "/images/status/radiation.svg"
-                    value: 75
+                    value: Dweller.weaponDamage
                 }
             }
         }
@@ -125,17 +115,22 @@ Item {
             itemStats: ListModel {
                 ListElement {
                     icon: "/images/status/defence.svg"
-                    value: 145
+                    value: Dweller.defence
                 }
 
                 ListElement {
                     icon: "/images/status/poison.svg"
-                    value: 5
+                    value: Dweller.poisonResistance
                 }
 
                 ListElement {
                     icon: "/images/status/energy.svg"
-                    value: 116
+                    value: Dweller.energyResistance
+                }
+
+                ListElement {
+                    icon: "/images/status/radiation.svg"
+                    value: Dweller.radiationResistance
                 }
             }
         }

@@ -1,5 +1,7 @@
 #include "settings.h"
+#include "dweller.h"
 #include <QDir>
+#include <QDate>
 
 namespace PipOS {
 Settings::Settings(QObject *parent)
@@ -9,21 +11,28 @@ Settings::Settings(QObject *parent)
 }
 
 QMap<QString, QVariant> Settings::createDefaultSettings() {
-    return QMap<QString, QVariant>{
-        { "Interface/color", "#00ff66" },
-        { "Interface/scale", 1.0 },
-        { "Interface/xOffset", 0 },
-        { "Interface/yOffset", 0 },
-        { "Interface/width", 720 },
-        { "Interface/height", 720 },
-        { "Interface/skipBoot", false },
-        { "Interface/scanlines", true },
-        { "Interface/hideMapTab", false },
-        { "Radio/directory", QDir::currentPath() },
-        { "Inventory/path", QDir::cleanPath( QDir::currentPath() + "/DemoMode.json" ) },
-        { "Map/apiKey", "" },
-        { "Map/positionSource", "" },
-    };
+  QMap<QString, QVariant> defaults{
+    { "Interface/color", "#00ff66" },
+    { "Interface/scale", 1.0 },
+    { "Interface/xOffset", 0 },
+    { "Interface/yOffset", 0 },
+    { "Interface/width", 720 },
+    { "Interface/height", 720 },
+    { "Interface/skipBoot", false },
+    { "Interface/scanlines", true },
+    { "Interface/hideMapTab", false },
+    { "Radio/directory", QDir::currentPath() },
+    { "Inventory/path", QDir::cleanPath( QDir::currentPath() + "/DemoMode.json" ) },
+    { "Map/apiKey", "" },
+    { "Map/positionSource", "" },
+  };
+
+  QMap<QString, QVariant> dwellerDefaults = PipOS::Dweller::defaultSettings();
+  for (auto it = dwellerDefaults.constBegin(); it != dwellerDefaults.constEnd(); ++it) {
+    defaults.insert("Dweller/" + it.key(), it.value());
+  }
+
+  return defaults;
 }
 
 void Settings::initializeDefaults() {

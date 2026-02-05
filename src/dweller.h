@@ -76,6 +76,13 @@ class Dweller : public QObject
 
     // Collections inventory
     Q_PROPERTY(QVariantList collections READ collections CONSTANT FINAL)
+    
+    // Additional attributes
+    Q_PROPERTY(int weaponDamage READ weaponDamage WRITE setWeaponDamage NOTIFY weaponDamageChanged FINAL)
+    Q_PROPERTY(int defence READ defence WRITE setDefence NOTIFY defenceChanged FINAL)
+    Q_PROPERTY(int poisonResistance READ poisonResistance WRITE setPoisonResistance NOTIFY poisonResistanceChanged FINAL)
+    Q_PROPERTY(int energyResistance READ energyResistance WRITE setEnergyResistance NOTIFY energyResistanceChanged FINAL)
+    Q_PROPERTY(int radiationResistance READ radiationResistance WRITE setRadiationResistance NOTIFY radiationResistanceChanged FINAL)
 
 public:
     explicit Dweller(QObject *parent = nullptr);
@@ -106,6 +113,14 @@ public:
 
     QVariantList collections();
 
+    static QMap<QString, QVariant> defaultSettings();
+
+    int weaponDamage() const;
+    int defence() const;
+    int poisonResistance() const;
+    int energyResistance() const;
+    int radiationResistance() const;
+
 public slots:
     void setName(const QString &newName);
     void setLevel(int newLevel);
@@ -127,6 +142,11 @@ public slots:
     void setCurrentHealth(int newCurrentHealth);
     void setMaxAP(int newMapAP);
     void setCurrentAP(int newCurrentAP);
+    void setWeaponDamage(int newWeaponDamage);
+    void setDefence(int newDefence);
+    void setPoisonResistance(int newPoisonResistance);
+    void setEnergyResistance(int newEnergyResistance);
+    void setRadiationResistance(int newRadiationResistance);
 
 signals:
     void nameChanged();
@@ -149,6 +169,11 @@ signals:
     void healthRightArmChanged();
     void healthLeftLegChanged();
     void healthRightLegChanged();
+    void weaponDamageChanged();
+    void defenceChanged();
+    void poisonResistanceChanged();
+    void energyResistanceChanged();
+    void radiationResistanceChanged();
 
 private:
     QSettings m_settings;

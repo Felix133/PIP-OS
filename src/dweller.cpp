@@ -1,10 +1,50 @@
 #include "dweller.h"
+#include <QMap>
+#include <QVariant>
 namespace PipOS {
 
 Dweller::Dweller(QObject *parent)
     : QObject{parent}
 {
     qInfo() << "Dweller attributes being loaded from" << m_settings.fileName();
+}
+
+QMap<QString, QVariant> Dweller::defaultSettings()
+{
+    QMap<QString, QVariant> d;
+    d.insert("name", "Albert");
+    d.insert("useBirthdayAsLevel", false);
+    d.insert("birthday", QDate(1990, 1, 1));
+    d.insert("level", 1);
+    d.insert("levelProgress", 0.0);
+
+    d.insert("specialStrength", 1);
+    d.insert("specialPerception", 1);
+    d.insert("specialEndurance", 1);
+    d.insert("specialCharisma", 1);
+    d.insert("specialIntelligence", 1);
+    d.insert("specialAgility", 1);
+    d.insert("specialLuck", 1);
+
+    d.insert("maxHP", 100);
+    d.insert("currentHP", 100);
+    d.insert("maxAP", 100);
+    d.insert("currentAP", 100);
+
+    d.insert("healthHead", 1.0);
+    d.insert("healthBody", 1.0);
+    d.insert("healthLeftArm", 1.0);
+    d.insert("healthRightArm", 1.0);
+    d.insert("healthLeftLeg", 1.0);
+    d.insert("healthRightLeg", 1.0);
+
+    d.insert("weaponDamage", 88);
+    d.insert("defence", 145);
+    d.insert("poisonResistance", 5);
+    d.insert("energyResistance", 116);
+    d.insert("radiationResistance", 75);
+
+    return d;
 }
 
 QString Dweller::name() const
@@ -267,6 +307,60 @@ void Dweller::setHealthRightLeg(float newHealthRightLeg)
     emit healthRightLegChanged();
 }
 
+int Dweller::weaponDamage() const
+{
+    return m_settings.value("Dweller/weaponDamage", 88).toInt();
+}
+
+void Dweller::setWeaponDamage(int newWeaponDamage)
+{
+    m_settings.setValue("Dweller/weaponDamage", newWeaponDamage);
+    emit weaponDamageChanged();
+}
+
+int Dweller::defence() const
+{
+    return m_settings.value("Dweller/defence", 145).toInt();
+}
+
+void Dweller::setDefence(int newDefence)
+{
+    m_settings.setValue("Dweller/defence", newDefence);
+    emit defenceChanged();
+}
+
+int Dweller::poisonResistance() const
+{
+    return m_settings.value("Dweller/poisonResistance", 5).toInt();
+}
+
+void Dweller::setPoisonResistance(int newPoisonResistance)
+{
+    m_settings.setValue("Dweller/poisonResistance", newPoisonResistance);
+    emit poisonResistanceChanged();
+}
+
+int Dweller::energyResistance() const
+{
+    return m_settings.value("Dweller/energyResistance", 116).toInt();
+}
+
+void Dweller::setEnergyResistance(int newEnergyResistance)
+{
+    m_settings.setValue("Dweller/energyResistance", newEnergyResistance);
+    emit energyResistanceChanged();
+}
+
+int Dweller::radiationResistance() const
+{
+    return m_settings.value("Dweller/radiationResistance", 75).toInt();
+}
+
+void Dweller::setRadiationResistance(int newRadiationResistance)
+{
+    m_settings.setValue("Dweller/radiationResistance", newRadiationResistance);
+    emit radiationResistanceChanged();
+}
 
 QVariantList Dweller::collections()
 {
