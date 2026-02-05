@@ -101,11 +101,13 @@ Item {
             id: weapon_stats
             itemIcon: "/images/status/weapon.svg"
             itemStats: ListModel {
-                ListElement {
-                    icon: "/images/status/damage.svg"
-                    value: Dweller.weaponDamage
-                }
+                id: weaponModel
             }
+        }
+
+        Connections {
+            target: Dweller
+            onWeaponDamageChanged: weapon_stats.itemStats.setProperty(0, "value", Dweller.weaponDamage)
         }
 
         // Armor stats
@@ -113,26 +115,27 @@ Item {
             id: armor_stats
             itemIcon: "/images/status/armor.svg"
             itemStats: ListModel {
-                ListElement {
-                    icon: "/images/status/defence.svg"
-                    value: Dweller.defence
-                }
-
-                ListElement {
-                    icon: "/images/status/poison.svg"
-                    value: Dweller.poisonResistance
-                }
-
-                ListElement {
-                    icon: "/images/status/energy.svg"
-                    value: Dweller.energyResistance
-                }
-
-                ListElement {
-                    icon: "/images/status/radiation.svg"
-                    value: Dweller.radiationResistance
-                }
+                id: armorModel
             }
+        }
+
+
+    Component.onCompleted: {
+        weaponModel.clear()
+        weaponModel.append({"icon": "/images/status/damage.svg", "value": Dweller.weaponDamage})
+
+        armorModel.clear()
+        armorModel.append({"icon": "/images/status/defence.svg", "value": Dweller.defence})
+        armorModel.append({"icon": "/images/status/poison.svg", "value": Dweller.poisonResistance})
+        armorModel.append({"icon": "/images/status/energy.svg", "value": Dweller.energyResistance})
+        armorModel.append({"icon": "/images/status/radiation.svg", "value": Dweller.radiationResistance})
+    }
+        Connections {
+            target: Dweller
+            onDefenceChanged: armor_stats.itemStats.setProperty(0, "value", Dweller.defence)
+            onPoisonResistanceChanged: armor_stats.itemStats.setProperty(1, "value", Dweller.poisonResistance)
+            onEnergyResistanceChanged: armor_stats.itemStats.setProperty(2, "value", Dweller.energyResistance)
+            onRadiationResistanceChanged: armor_stats.itemStats.setProperty(3, "value", Dweller.radiationResistance)
         }
     }
 

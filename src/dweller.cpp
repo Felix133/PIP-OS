@@ -265,7 +265,7 @@ void Dweller::setHealthBody(float newHealthBody)
 
 float Dweller::healthLeftArm() const
 {
-    return m_settings.value("Dweller/healthHead", 1.0).toFloat();
+    return m_settings.value("Dweller/healthLeftArm", 1.0).toFloat();
 }
 
 void Dweller::setHealthLeftArm(float newHealthLeftArm)
