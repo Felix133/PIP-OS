@@ -83,7 +83,10 @@ class Dweller : public QObject
     Q_PROPERTY(int poisonResistance READ poisonResistance WRITE setPoisonResistance NOTIFY poisonResistanceChanged FINAL)
     Q_PROPERTY(int energyResistance READ energyResistance WRITE setEnergyResistance NOTIFY energyResistanceChanged FINAL)
     Q_PROPERTY(int radiationResistance READ radiationResistance WRITE setRadiationResistance NOTIFY radiationResistanceChanged FINAL)
-
+    // Weight
+    Q_PROPERTY(int weight READ weight WRITE setWeight NOTIFY weightChanged FINAL)
+    Q_PROPERTY(int maxWeight READ maxWeight WRITE setMaxWeight NOTIFY maxWeightChanged FINAL)
+    
 public:
     explicit Dweller(QObject *parent = nullptr);
 
@@ -120,6 +123,8 @@ public:
     int poisonResistance() const;
     int energyResistance() const;
     int radiationResistance() const;
+    int weight() const;
+    int maxWeight() const;
 
 public slots:
     void setName(const QString &newName);
@@ -147,6 +152,8 @@ public slots:
     void setPoisonResistance(int newPoisonResistance);
     void setEnergyResistance(int newEnergyResistance);
     void setRadiationResistance(int newRadiationResistance);
+    void setWeight(int newWeight);
+    void setMaxWeight(int newMaxWeight);
 
 signals:
     void nameChanged();
@@ -174,6 +181,8 @@ signals:
     void poisonResistanceChanged();
     void energyResistanceChanged();
     void radiationResistanceChanged();
+    void weightChanged();
+    void maxWeightChanged();
 
 private:
     QSettings m_settings;
