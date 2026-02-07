@@ -44,6 +44,9 @@ QMap<QString, QVariant> Dweller::defaultSettings()
     d.insert("energyResistance", 116);
     d.insert("radiationResistance", 75);
 
+    d.insert("weight", 217);
+    d.insert("maxWeight", 300);
+
     return d;
 }
 
@@ -360,6 +363,28 @@ void Dweller::setRadiationResistance(int newRadiationResistance)
 {
     m_settings.setValue("Dweller/radiationResistance", newRadiationResistance);
     emit radiationResistanceChanged();
+}
+
+int Dweller::weight() const
+{
+    return m_settings.value("Dweller/weight", 217).toInt();
+}
+
+void Dweller::setWeight(int newWeight)
+{
+    m_settings.setValue("Dweller/weight", newWeight);
+    emit weightChanged();
+}
+
+int Dweller::maxWeight() const
+{
+    return m_settings.value("Dweller/maxWeight", 300).toInt();
+}
+
+void Dweller::setMaxWeight(int newMaxWeight)
+{
+    m_settings.setValue("Dweller/maxWeight", newMaxWeight);
+    emit maxWeightChanged();
 }
 
 QVariantList Dweller::collections()

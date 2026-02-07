@@ -44,15 +44,31 @@ C.Page {
                 Layout.preferredHeight: parent.height
                 color: "#333333"
 
-                Text {
+                Row {
                     anchors.fill: parent
-                    anchors.margins: 10
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
-                    font.pixelSize: 28
-                    font.family: "Roboto Condensed Bold"
-                    text: "217/300"
-                    color: "white"
+                    spacing: 8
+
+                    Image {
+                        id: icon
+                        source: "/images/status/weight.svg"
+                        fillMode: Image.PreserveAspectFit
+                        width: parent.height / 2
+                        height: parent.height / 2
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Text {
+                        anchors.left: icon.right
+                        anchors.right: parent.right
+                        anchors.margins: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignLeft
+                        font.pixelSize: 28
+                        font.family: "Roboto Condensed Bold"
+                        text: Dweller.weight + "/" + Dweller.maxWeight
+                        color: "white"
+                    }
                 }
             }
 
