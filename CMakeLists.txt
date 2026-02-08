@@ -138,6 +138,7 @@ qt_add_resources(appPipOS "images"
         assets/images/status/armor.svg
         assets/images/status/defence.svg
         assets/images/status/weapon.svg
+        assets/images/status/weight.svg
         assets/images/status/damage.svg
         assets/images/status/cryo.svg
         assets/images/status/energy.svg
@@ -158,6 +159,10 @@ qt_add_resources(appPipOS "images"
         assets/images/SPECIAL/Agility.gif
         assets/images/SPECIAL/Luck.gif
         assets/images/AtomicCommandStart.gif
+        assets/images/status/Ammo.svg
+        assets/images/status/plus.svg
+        assets/images/status/search.svg
+        assets/images/status/time.svg
 )
 
 qt_add_resources(appPipOS "sounds"

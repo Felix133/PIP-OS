@@ -52,8 +52,8 @@ C.Page {
                         id: icon
                         source: "/images/status/weight.svg"
                         fillMode: Image.PreserveAspectFit
-                        width: parent.height / 2
-                        height: parent.height / 2
+                        width: parent.height * 0.8
+                        height: parent.height * 0.8
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
